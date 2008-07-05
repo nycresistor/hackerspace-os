@@ -1,0 +1,6 @@
+MembershipNumber is not used anymore as own Fied, id is used for MembershipNumber
+
+when adding a new User (Member) you create a MembershipPeriod from the day of entry until the end
+of the month with KindOfMembership=free, then you create a another MembershipPeriod from the first
+day of the next month with a KindOfMembership=normal (leave field 'until' empty)
+

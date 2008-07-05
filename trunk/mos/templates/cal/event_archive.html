@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Metalab - Calendar{% endblock %}
+
+{% block content %}
+<div id="header">
+	<div id="branding">
+		<h1 id="site-name">Metalab Calendar</h1>
+	</div>
+</div>
+	{% include "cal/calendar.inc" %}
+{% endblock %}

@@ -1,0 +1,4 @@
+used libraries:
+* http://feedparser.org/
+* dateutil
+* pil - python imaging library: http://www.pythonware.com/products/pil/

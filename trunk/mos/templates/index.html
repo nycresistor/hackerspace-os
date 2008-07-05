@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Metalab{% endblock %}
+
+{% block content %}
+<div id="column_1">
+	<div id="gallery">
+		<h1>Pics vom hackerspace OS</h1>
+		<div id="hos_gallery">
+			{% for image in images %}
+			<div class="pic {% cycle ,last %}">
+				<a href="{{image.href}}"><img src="{{ image.src }}" width="160" height="113" alt=" " /></a>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	<div id="calendar">
+        <h1><a href="/cal" title="Veranstaltungen">Events</a></h1>
+		{% include "cal/calendar.inc" %}
+    </div>
+    <div id="openlab">
+        foo 
+    </div>
+</div>
+<div id="column_2">
+	<div id="members">
+        <h1><a href="/member/" title="Member List">Members</a></h1>
+        <div class="member_pics">
+            {% for member in randommembers %}
+            {% if member.contactinfo_set.all.0.get_wikilink %}<a class="member" href="{{ member.contactinfo_set.all.0.get_wikilink }}">{% endif %}<img src="{{ member.contactinfo_set.all.0.get_image_url }}"  width="54" height="54" alt="{{ member.username }}" />{% if member.contactinfo_set.all.0.get_wikilink %}</a>{% endif %}
+            {% endfor %}
+		</div>
+	</div>
+	<div id="introduction_text">
+	   Introduction
+	</div>
+	<div id="project_list">
+		<h1><a href="/project/" title="Projekte">Current Projects</a></h1>
+		{% include "projects/overview.inc" %}
+    </div>
+ 
+	{% comment %}
+	   <div id="recent_changes">
+		{% include "rss/recentchanges.inc" %}
+	  </div>
+	{% endcomment %}
+</div>
+{% endblock %}

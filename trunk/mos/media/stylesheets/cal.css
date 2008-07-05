@@ -1,0 +1,73 @@
+/* styling */
+
+ul.errorlist {
+        float: left;
+        margin: 0;
+        padding: 0;
+	border: 0px solid gray;
+    }
+.errorlist li {
+        border: 0px solid gray;    
+        display: block;
+	font-color: black;
+        margin: 0 0 0px;
+        padding: 2px 2px;
+	width : 50%;
+}
+#calendar-content {
+	float: left;
+	margin-bottom: 0.5em;
+}
+
+#calendar-content ul {
+	float: left;
+	border: 1px solid gray;
+}
+
+#calendar-content li {
+	float: left;
+	display: block;
+	width: 100%;
+}
+
+#calendar-content div {
+	padding: 1px 0 0 1px;
+}
+
+#calendar-content li p {
+	margin: 0;
+	padding: 0.5em 1em;
+}
+#calendar-content li .event {
+	background: darkgray;	
+}
+
+#calendar-content li .past_event {
+	background: gray;
+}
+
+#calendar-content .event_date, p.event .event_date {
+	font-weight: bold;
+	padding-right: 5px;
+	margin-right: 5px;
+}
+
+/* action */
+.invisible {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+.event .hoverHidden {
+    opacity: 0;
+}
+.event:hover .hoverHidden {
+    opacity: 0.6;
+}
+
+.event:hover .hoverHidden:hover {
+    opacity: 1;
+}

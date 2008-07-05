@@ -1,0 +1,196 @@
+/* -------------------------
+     Hackerspace OS CSS
+          based on
+	    Metalab CSS
+	    
+	    Version 1.0
+ ---------------------------*/
+
+#container {
+	float: left;
+	width: 100%;
+	background: #fff;
+	border: none;
+}
+ 
+#page {
+	 width: 900px;
+	 margin: 0 auto 2em auto;
+}
+
+/* =header */
+#header {
+	width: 100%;
+	float: left;
+	margin-bottom: 1em;
+}
+
+#logo {
+	display: inline;
+	float: left;
+	margin-top: 0.7em;
+}
+
+#logo a {
+	line-height: 1em;
+	border: none;
+}
+
+#logo a:hover {
+	background: none;
+}
+
+#header-nav {
+	float: left;
+	margin-left: 150px;
+}
+
+#header-nav li {
+	float: left;
+}
+
+#header-nav a {
+	float: left;
+	color: #fff;
+	background: gray;
+	margin:  0 3px;
+	padding: 0.5em 0.7em;
+}
+
+#header-nav a:hover {
+	background: darkgray;
+}
+
+#login {
+	float: right;
+	margin: 0.7em 3em 0 0;
+	
+}
+
+#presence_closed{
+	float: right;
+	margin-top: 0.7em;
+}
+
+#presence_open {
+	float: right;
+	margin-top: 0.7em;
+}
+
+/* =main */
+#main {
+	float: left;
+	width: 100%;
+}
+
+#main #column_1 {
+	width: 333px;
+	display: inline; /* fixes IE double margin issue */
+	float: left;
+}
+
+#main #column_2 {
+	width: 518px;
+	float: right;
+}
+
+/* =description */
+#gallery {
+	float: left;
+	width: 100%;
+	height:13em;
+	border-bottom: 1px solid gray;
+	margin-bottom: 2em;
+	padding-bottom: 1em;
+}
+
+#hos_gallery.pic {
+	float: left;
+	border: 1px solid #ddd;
+	margin: 0 5px 5px 0;
+	padding: 1px 1px 0 1px;
+}
+
+#hos_gallery .last {
+	float: left;
+	margin-right: 0;
+}
+
+#hos_gallery .pic a {
+	display: block;
+	line-height: 1em;
+}
+
+/* =project */
+#project_list {
+	float: left;
+	width: 100%;
+}
+
+#recent_changes {
+	float: right;
+	width: 249px;
+}
+
+/* =calendar */
+#calendar {
+	border-bottom: 1px solid gray;
+	margin-bottom: 2em;
+	padding-bottom: 1em;
+}
+
+/* =members */
+#members {
+	float: left;
+	width: 100%;
+	height: 8em;
+	margin-bottom: 1em;
+	padding-bottom: 1em;
+}
+
+#introduction_text {
+	float:left;
+    width: 100%;
+	height: 3em;
+	border-bottom: 1px solid gray;
+	margin-bottom: 2em;
+	padding-bottom: 1em;
+}
+
+.member_pics {
+	float: left;
+	margin-bottom: 16px;
+}
+
+.member_pics .member {
+	float: left;
+	display: block;
+	line-height: 1em;
+	border: 1px solid gray;
+	margin-right: 7px;
+	padding: 1px 1px 0 1px;
+}
+
+.member_pics .last {
+	margin-right: 0;
+}
+
+/* =footer */
+#footer {
+	clear: both;
+	border-top: 1px solid gray;
+	padding: 0.5em 1em;
+}
+
+#content {
+    clear: both;
+}
+
+.metasense_image {
+	margin-bottom:-4px;
+}
+
+#openlab {
+    margin-bottom: 1.5em;
+    padding-left: 0.5em;
+}

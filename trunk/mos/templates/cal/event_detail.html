@@ -1,0 +1,11 @@
+{% load cal-newforms %}
+
+{% extends 'base.html' %}
+{% block title %}Metalab Event: {{ event.name }}{% endblock %}
+{% block content %}
+    {% if user.is_authenticated %}
+        {% print_form event mos.cal.forms.EventForm %}
+    {% else %}
+    {% include 'cal/eventinfo.inc' %}
+    {% endif %}
+{% endblock %}
