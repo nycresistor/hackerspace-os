@@ -3,9 +3,12 @@
 <p class="event {% ifequal event_error_id event_form.instance.id %}invisible{% endifequal%}  {% if event.past %}past_event{% else %}event{% endif %}" id="calendar-view-{{event_form.instance.id|default_if_none:""}}">
     {% if not new %}
        <span class="event_date">{{ event.startDate|date:"D d.m.Y H:i" }} {% if event.endDate %} - {% if event.start_end_date_eq %} {{ event.endDate|date:"H:i" }} {% else %} {{ event.endDate|date:"D d.m.Y H:i" }} {% endif %} {% endif %}</span>       
-		{% if event.wikiPage %}<a href="/wiki/{{event.wikiPage}}"> {% endif %}{{ event.name }}{% if event.wikiPage %}</a>{% endif %}
+      		{% if event.wikiPage %}<a href="/wiki/{{event.wikiPage}}"> {% endif %}{{ event.name }}{% if event.wikiPage %}</a>{% endif %}
 		{% if event.teaser %}<span class="teaser">{{ event.teaser }}</span>{% endif %}
-    {% endif %}
+		{% if event.category %}<span class="category"> | <a href="/cal/special/Category/{{ event.category }}/">{{ event.category }}</a></span>{% endif %}
+		{% if event.location%}<span class="location"> | <a href="/cal/special/Location/{{ event.location }}/">{{ event.location }}</a></span>{% endif %}
+
+ {% endif %}
 	{% if user.is_authenticated %}
         <a href='#' class="{%if not new %}hoverHidden{%endif%}" onclick="toggleView('calendar', '{% if not new %}{{event_form.instance.id|default_if_none:""}}{% endif %}', 1); return false;">{%if not new %}Edit{%else%}Create New Event{%endif%}</a>{% endif %}
 	</p>
