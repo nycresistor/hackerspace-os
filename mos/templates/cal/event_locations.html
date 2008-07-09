@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load cal_tags %}
+{% block title %}Metalab - Calendar{% endblock %}
+
+{% block content %}
+<div id="header">
+	<div id="branding">
+		<h1 id="site-name">Metalab Calendar</h1>
+	</div>
+
+{% include 'cal/overview_event_navigation.inc'  %}
+
+</div>
+
+  {% for location in object_list %}
+      <p> <b>{{location.name}}</b> / {{location.description}}</p>
+  
+    {% with test|get_events_by_location:location.name as latestevents %}
+     {% with "True" as disable_create  %} {# switch to disable "create event" link for every location, because the link doesnt work for every location correctly,see issue #}
+       {% include 'cal/calendar.inc' %}
+      {% endwith %}
+     {% endwith %}
+ 
+  {% endfor %}
+      
+
+{% endblock content %}

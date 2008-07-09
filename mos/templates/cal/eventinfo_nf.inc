@@ -47,6 +47,17 @@
                 <dt> {{ event_errors.endDate }} </dt>
 			{% endif %}
 			<dd> {{ event_form.endDate }}</dd>
+
+            {% if event_errors.category %}
+                <dt> {{ event_errors.category }} </dt>
+			{% endif %}
+			<dd> {{ event_form.category }}</dd>
+
+            {% if event_errors.location %}
+                <dt> {{ event_errors.location }} </dt>
+			{% endif %}
+			<dd> {{ event_form.location }}</dd>
+
 	    <dd> (*) -> required field </dd>
             <dt style="visibility: hidden">Submit:</dt>
             <dd style="text-align: right;">

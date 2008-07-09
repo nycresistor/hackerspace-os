@@ -1,5 +1,3 @@
-
-
 <div id="calendar-content">
 
     <ul>
@@ -13,5 +11,5 @@
             {% include "cal/eventinfo.inc" %}
         {% endwith %}
 	{% endwith %}
-	<p style="text-align: right"><a href="/cal">more...</a></p>
+	{% if not all_events %} <p style="text-align: right"><a href="/cal/{% if location %}special/Location/{{location.name}}{% else %}{% if category %}special/Category/{{category.name}}{% endif %}{% endif %}">more...</a></p> {% endif %}
 </div>

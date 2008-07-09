@@ -1,13 +1,34 @@
 import datetime
 import locale
 
-from django.contrib.auth.models import User
-from django.db.models import permalink, Q
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import permalink, Q
 
 
 locale.setlocale(locale.LC_ALL, 'de_DE.UTF-8')
+
+class Category(models.Model):
+    name = models.CharField(max_length=30)
+    description = models.CharField(max_length=200)
+
+    def __str__(self):
+        return u"%s" % self.name
+    
+    class Admin:
+        pass
+
+class Location(models.Model):
+    name = models.CharField(max_length=30)
+    description = models.CharField(max_length=200)
+
+
+    def __str__(self):
+        return u"%s" % self.name
+
+    class Admin:
+        pass
 
 class EventManager(models.Manager):
     def get_query_set(self):
@@ -27,6 +48,7 @@ class FutureEventFixedNumberManager(EventManager):
         future = all.filter(
                             (Q(endDate__gte=datetime.datetime.now())) |
                             (Q(endDate__isnull=True) & Q(startDate__gte=datetime.datetime.now()-datetime.timedelta(hours=5)))).order_by('startDate') # event visible 5 hours after it started
+
         if(future.count()<num):
             if(all.count()-num>=0):
                 latest = all[all.count()-num:all.count()]
@@ -52,6 +74,9 @@ class Event(models.Model):
     created_by = models.ForeignKey(User)
 
     deleted = models.BooleanField(default=False)
+
+    category = models.ForeignKey(Category, blank=True, null=True)
+    location = models.ForeignKey(Location, blank=True, null=True)
 
     objects = models.Manager()
     all = EventManager()
@@ -83,3 +108,4 @@ class Event(models.Model):
 
     def start_end_date_eq(self):
         return self.startDate.date() == self.endDate.date()
+

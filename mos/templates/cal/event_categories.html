@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load cal_tags %}
+{% block title %}Metalab - Calendar{% endblock %}
+
+{% block content %}
+<div id="header">
+	<div id="branding">
+		<h1 id="site-name">Metalab Calendar</h1>
+	</div>
+
+{% include 'cal/overview_event_navigation.inc'  %}
+
+</div>
+<div>
+  {% for category in object_list %}
+     <p> <b>{{category.name}}</b> / {{category.description}}</p>
+     
+     {% with test|get_events_by_category:category.name as latestevents %}
+      {% with "True" as disable_create %}
+       {% include 'cal/calendar.inc' %}
+      {% endwith %}
+     {% endwith %}
+{% endfor %}
+
+
+</div>
+{% endblock content %}

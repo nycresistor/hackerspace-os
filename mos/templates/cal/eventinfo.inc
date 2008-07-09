@@ -1,12 +1,19 @@
+{% load cal_tags %}
+
 <div id='eventcontainer{{event.id}}'>
     <p class="event visible {% if event.past %}past_event{% else %}event{% endif %}" id='calendar-view-{{event.id}}'>
     {% if not new %} 
        <span class="event_date">{{ event.startDate|date:"D d.m.Y H:i" }} {% if event.endDate %} - {% if event.start_end_date_eq %} {{ event.endDate|date:"H:i" }} {% else %} {{ event.endDate|date:"D d.m.Y H:i" }} {% endif %} {% endif %} </span>      
       		{% if event.wikiPage %}<a href="/wiki/{{event.wikiPage}}"> {% endif %}{{ event.name }}{% if event.wikiPage %}</a>{% endif %}
 		{% if event.teaser %}<span class="teaser">{{ event.teaser }}</span>{% endif %}
+		{% if event.category %}<span class="category"><a href="/cal/special/Category/{{ event.category }}/">{{ event.category }}</a></span>{% endif %}
+		{% if event.location%}<span class="location"><a href="/cal/special/Location/{{ event.location }}/">{{ event.location }}</a></span>{% endif %}
+
     {% endif %}
-	{% if user.is_authenticated %}
-        <a href='#' class="{%if not new %}hoverHidden{%endif%}" onclick="toggleView('calendar', '{% if not new %}{{event.id}}{% endif %}', 1); return false;">{%if not new %}Edit{%else%}Create New Event{%endif%}</a>{% endif %}
+{% if user.is_authenticated %}
+	{% if not disable_create %}
+       	    <a href='#' class="{%if not new %}hoverHidden{%endif%}" onclick="toggleView('calendar', '{% if not new %}{{event.id}}{% endif %}', 1); return false;">{%if not new %}Edit{%else%}Create New Event{%endif%}</a>        {% endif %}
+{% endif %}
 	</p>
 	{% if user.is_authenticated %}
     <div class="invisible  edit" id='calendar-edit-{{event.id}}'>
@@ -36,7 +43,26 @@
 			<dd><input name='endDate_0' class='vDateField' id="event-endDate-{{event.id}}" type='text' value='{{ event.endDate.date }}' />
 			<input name='endDate_1' class='vTimeField' id="event-endTime-{{event.id}}" type='text' value='{{ event.endDate.time }}' />
             </dd>
-	    <dd> (*) -> required field </dd>
+
+	    		<dt> <label>Category</label></dt>
+			<dd><select name="category" id="event-category-{{event.id}}">
+			      <option></option>
+			        {% for category in category_list|get_category_list %}
+			      	   <option  {% ifequal  category event.category %}  selected {% endifequal %}  value="{{ forloop.counter }}"> {{ category }}</option> 
+			        {% endfor %}
+			   </select>
+			</dd>
+
+	    		<dt> <label>Location</label></dt>
+			<dd><select name="location"  id="event-location-{{event.id}}">
+			     	<option></option>
+			        {% for location in location_list|get_location_list %}
+			      	   <option {% ifequal  location event.location %}  selected {% endifequal %} value="{{ forloop.counter }}"> {{ location }}</option> 
+			        {% endfor %}
+			  </select> 
+			 </dd>
+
+	    <dd> (*) -> required fields </dd>
             <dt style="visibility: hidden">Submit:</dt>
             <dd style="text-align: right;">
 			{% if not new %}

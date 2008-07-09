@@ -8,5 +8,22 @@
 		<h1 id="site-name">Metalab Calendar</h1>
 	</div>
 </div>
+{% include 'cal/overview_event_navigation.inc'  %}
+
+
+{% if type %}
+   <p>  {{ type }}
+     {% if title %}
+       / <b>{{ title }}</b>  /
+     {% endif %}
+   
+{% endif %}
+{% if description %}
+   {{ description.description }}</p>
+{% endif %}
+
+
+    {% with "True" as all_events %}   {# variable for switching more link ind calendar.inc #}
 	{% include "cal/calendar.inc" %}
+    {% endwith %}
 {% endblock %}
