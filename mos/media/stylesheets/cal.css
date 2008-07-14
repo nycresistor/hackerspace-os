@@ -39,11 +39,11 @@ ul.errorlist {
 	padding: 0.5em 1em;
 }
 #calendar-content li .event {
-	background: darkgray;	
+	background: #75A3A3;	
 }
 
 #calendar-content li .past_event {
-	background: gray;
+	background: #F2F2F2;
 }
 
 #calendar-content .event_date, p.event .event_date {

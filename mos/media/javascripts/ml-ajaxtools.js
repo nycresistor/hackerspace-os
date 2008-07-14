@@ -26,27 +26,10 @@ function set_invisible(obj){
     obj.removeClassName('visible');
 }
 
-function update_metasense() {
-    /*new Ajax.Request('http://metalab.at/metasense/status.html', {asynchronous:true, onFailure:function(){}, onException:function(){}, onSuccess:function(transport){ */
-    new Ajax.Request('/metasense/status.html', {asynchronous:true, onFailure:function(){}, onException:function(){}, onSuccess:function(transport){ 
-        oopen = $('presence_open');
-        oclosed = $('presence_closed');
-        if(transport.responseText.match("ffnet")) {
-            set_visible(oopen);
-            set_invisible(oclosed);
-          } else if( transport.responseText.match("niemand")){            
-            set_visible(oclosed);
-            set_invisible(oopen);            
-        } else {
-            set_invisible(oopen);
-            set_invisible(oclosed);
-        }
-    }});
-}
 
 function do_on_load()
 {
-    update_metasense();
+//    update_metasense();
     DateTimeShortcuts.init();
 }
 

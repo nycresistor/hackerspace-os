@@ -8,7 +8,7 @@ feeds = {
         }
 
 urlpatterns = patterns('',
-    (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),    
+ #   (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),    
 
 
     (r'^cal/', include('mos.cal.urls')),
@@ -27,7 +27,7 @@ urlpatterns = patterns('',
     (r'^member/', include('mos.members.urls')),
     
     (r'^wikipage/.*$', 'mos.web.views.wikipage'),
-    (r'^usbherelist/', include('mos.usbherelist.urls')),
+#    (r'^usbherelist/', include('mos.usbherelist.urls')),
 
     (r'^announce/$', include('mos.announce.urls'))
 )

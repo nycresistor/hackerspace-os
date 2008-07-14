@@ -74,6 +74,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.doc.XViewMiddleware',
+    'mos.core.middleware.SetStatFooter', # remove this row to disable footer stats
 )
 
 ROOT_URLCONF = 'mos.urls'
@@ -107,3 +108,18 @@ LOGIN_URL = '/login/'
 HOME_EVENT_NUM = 5
 WIKI_URL = '/wiki/'
 ANNOUNCE_FROM = 'core@metalab.at'
+
+
+	
+ustom Options 
+
+HOS_METASENSE = False
+
+HOS_LOCATION_GALLERY = True
+HOS_MEMBER_GALLERY = True
+HOS_CALENDAR = True
+HOS_OPENLAB = True
+HOS_INTRODUCTION = True
+HOS_PROJECTS = True
+HOS_RECENT_CHANGES = True
+

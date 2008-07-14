@@ -7,6 +7,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 
 from django.contrib.auth.models import User
 
+from mos.core.context_processors import custom_settings_main
 from mos.cal.models import Event
 from mos.rss.models import Change
 from mos.projects.models import Project
@@ -66,7 +67,7 @@ def display_main_page(request):
         'latestprojects': projects,
         'images' : images,
         'randommembers': randommembers,
-        }, context_instance=RequestContext(request)
+        }, context_instance=RequestContext(request, processors=[custom_settings_main])
     )
     
 def wikipage(request):

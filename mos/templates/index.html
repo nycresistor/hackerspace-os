@@ -1,9 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %}Metalab{% endblock %}
+
 
 {% block content %}
+{% if not gallery and not members and introduction_text %}
+	<div id="introduction_text">
+	           Introduction
+	</div>
+{% endif %}
+
 <div id="column_1">
+	
+     {% if gallery %}	
 	<div id="gallery">
 		<h1>Pics vom hackerspace OS</h1>
 		<div id="hos_gallery">
@@ -14,35 +22,53 @@
 			{% endfor %}
 		</div>
 	</div>
-	<div id="calendar">
-        <h1><a href="/cal" title="Veranstaltungen">Events</a></h1>
+     {% endif %}
+
+     {% if calendar %}
+     	<div id="calendar">
+      	    <h1><a href="/cal" title="Veranstaltungen">Events</a></h1>
 		{% include "cal/calendar.inc" %}
-    </div>
-    <div id="openlab">
-        foo 
-    </div>
+        </div>
+    {% endif %}
+
+    {% if openlab %}
+    	<div id="openlab">
+          foo 
+    	</div>
+    {% endif %}
 </div>
+
 <div id="column_2">
+	
+     {% if members %}	
 	<div id="members">
-        <h1><a href="/member/" title="Member List">Members</a></h1>
-        <div class="member_pics">
+          <h1><a href="/member/" title="Member List">Members</a></h1>
+          <div class="member_pics">
             {% for member in randommembers %}
             {% if member.contactinfo_set.all.0.get_wikilink %}<a class="member" href="{{ member.contactinfo_set.all.0.get_wikilink }}">{% endif %}<img src="{{ member.contactinfo_set.all.0.get_image_url }}"  width="54" height="54" alt="{{ member.username }}" />{% if member.contactinfo_set.all.0.get_wikilink %}</a>{% endif %}
             {% endfor %}
-		</div>
+	  </div>
 	</div>
+     {% endif %}
+
+     {% if  gallery and  members and introduction_text %}
+
 	<div id="introduction_text">
 	   Introduction
 	</div>
+     {% endif %}
+
+     {% if projects %}
 	<div id="project_list">
 		<h1><a href="/project/" title="Projekte">Current Projects</a></h1>
 		{% include "projects/overview.inc" %}
-    </div>
- 
-	{% comment %}
+    	</div>
+     {% endif %}
+
+     {% if recent_changes %}
 	   <div id="recent_changes">
 		{% include "rss/recentchanges.inc" %}
 	  </div>
-	{% endcomment %}
+     {% endif %}
 </div>
 {% endblock %}

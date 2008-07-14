@@ -177,6 +177,7 @@
 
 /* =footer */
 #footer {
+	text-align: center;
 	clear: both;
 	border-top: 1px solid gray;
 	padding: 0.5em 1em;
