@@ -7,6 +7,13 @@ feeds = {
         'events': EventFeed,
         }
 
+
+# used for 
+js_info_dict = {
+    		'packages': ('django.conf',),
+	       }
+
+
 urlpatterns = patterns('',
  #   (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),    
 
@@ -19,7 +26,11 @@ urlpatterns = patterns('',
     (r'^$', 'mos.web.views.display_main_page'),
     
     (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-    (r'^admin/', include('django.contrib.admin.urls')),
+ 
+ # doesnt work with recent django
+ #  (r'^admin/', include('django.contrib.admin.urls')), 
+    (r'^admin/jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
+
 
     (r'^login/?$', 'django.contrib.auth.views.login'),
     (r'^logout/?$', 'django.contrib.auth.views.logout', {'next_page':'/'}),
