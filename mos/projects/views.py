@@ -1,13 +1,10 @@
-from django.http import HttpResponse
-from django.template import RequestContext
-from django.shortcuts import render_to_response
-from mos.projects.models import Project
-from django.db.backends.util import typecast_date
-from django.db.backends.util import typecast_time
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from mos.projects.models import Project
 
 from forms import ProjectForm
-import datetime
+
 
 @login_required
 def update_project(request, new, object_id=None):
@@ -16,26 +13,34 @@ def update_project(request, new, object_id=None):
 
 
     if not new:
-        project_form = ProjectForm(request.POST,instance = Project.all.get(id=object_id))
+        project =  Project.all.get(id=object_id)
     else:
-        project_form = ProjectForm(request.POST)
+        project = Project()
+
+    project_error_id = '' # set event_error_id to '', if an error occurs it will be the error id
  
-    if project_form.is_valid():
-        project = project_form.save(commit=False)
-        
-        if new:
-            project.created_by = request.user 
-    
-    else :  #display error messages,if "name" field is empty no 
-            #information where the error occured will be displayed!
-        print project_form.errors
-        return _get_latest(request,errors=project_form.errors,e_project_name=request.POST['name'])
+    if request.method == 'POST' :
+        project_form = ProjectForm(request.POST, instance=project)
 
-    
+        if project_form.is_valid():
+            project_data = project_form.save(commit=False)
+            
+            if new:
+                project_data.created_by = request.user 
+                project_data.save()
+                project = Project.objects.get(id=project_data.id)
+        else:
+            project_error_id = project.id 
+    else :
+        project_form = ProjectForm
 
-    project.save()
+    return render_to_response('projects/projectinfo_nf.inc',{
+            'project_error_id' : project_error_id,
+            'project_form' : project_form,
+            'project' : project,
+            'new' : not project.pk,
+           }, context_instance=RequestContext(request))
 
-    return _get_latest(request)
 
 
 @login_required

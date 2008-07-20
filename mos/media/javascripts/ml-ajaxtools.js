@@ -1,3 +1,11 @@
+function submit_form(form, container){
+    myform = form;
+    new Ajax.Updater(container, myform.readAttribute('action'), {
+	              parameters: myform.serialize(true),
+		});
+
+}
+
 function toggleView(type, id, onoff) {
     view = $(type + '-view-' + id);
     edit = $(type + '-edit-' + id);
@@ -42,3 +50,4 @@ function enter_pressed(e){
 }
 
 addEvent(window, 'load', do_on_load);
+

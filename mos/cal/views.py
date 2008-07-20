@@ -80,7 +80,6 @@ def update_event(request, new, object_id=None):
         'event_form' : event_form,
         'event' : event,
         'new': not event.pk,
-        'event_errors' : event_form.errors,
         }, context_instance=RequestContext(request)
     )
 

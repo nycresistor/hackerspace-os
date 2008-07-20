@@ -3,13 +3,13 @@
    inspired by www.pylucid.org 
    see http://trac.pylucid.net/browser/trunk/pylucid/PyLucid/middlewares/pagestats.py for authors
 """
-
 import time
 
 from django.db import connection
 from django.utils.encoding import force_unicode
-
 from mos.core.utils import  human_readable_time
+
+
 TAG = '<!-- footer_stats -->'
 FOOTER_STAT_STRING = 'renderd in %(time)s - %(queries)s sql queries'
 
@@ -37,7 +37,7 @@ class SetStatFooter:
 
 	stats = FOOTER_STAT_STRING % {'time' : human_readable_time(time.time() - self.time_started),
 								  'queries' : queries
-								 }
+				     }
         content = response.content
         response.content = force_unicode(content).replace(TAG, stats)
         

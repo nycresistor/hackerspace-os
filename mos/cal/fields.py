@@ -1,5 +1,5 @@
-import django.newforms as forms
-from django.newforms import ValidationError
+import django.forms as forms
+from django.forms import ValidationError
 
 import datetime
 

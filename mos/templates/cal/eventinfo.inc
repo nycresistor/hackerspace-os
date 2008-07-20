@@ -1,6 +1,7 @@
 {% load cal_tags %}
 
 <div id='eventcontainer{{event.id}}'>
+
     <p class="event visible {% if event.past %}past_event{% else %}event{% endif %}" id='calendar-view-{{event.id}}'>
     {% if not new %} 
        <span class="event_date">{{ event.startDate|date:"D d.m.Y H:i" }} {% if event.endDate %} - {% if event.start_end_date_eq %} {{ event.endDate|date:"H:i" }} {% else %} {{ event.endDate|date:"D d.m.Y H:i" }} {% endif %} {% endif %} </span>      
@@ -17,12 +18,8 @@
 	</p>
 	{% if user.is_authenticated %}
     <div class="invisible  edit" id='calendar-edit-{{event.id}}'>
-		<form id='calendar-form-{{event.id}}' method="post" action="/cal/{% if new %}new{%else%}{{event.id}}/update{%endif%}/" onsubmit="return false;" onKeyPress="if(enter_pressed(event)){ 
-			myform = $('calendar-form-{{event.id}}');
-			new Ajax.Updater( $('eventcontainer{{event.id}}'), myform.readAttribute('action'), {
-			  parameters: myform.serialize(true),
-			});
-			 }">
+		<form id='calendar-form-{{event.id}}' method="post" action="/cal/{% if new %}new{%else%}{{event.id}}/update{%endif%}/" onsubmit="return false;" onKeyPress="if(enter_pressed(event)){  submit_form($('calendar-form-{{event.id}}'), $('eventcontainer{{event.id}}')); }">
+
             <dl>
 
 			<dt><label><b>Event Name</b>:* - Teaser:</label></dt>
@@ -66,25 +63,18 @@
             <dt style="visibility: hidden">Submit:</dt>
             <dd style="text-align: right;">
 			{% if not new %}
-				<input type="button" value="Update" onclick="myform = $('calendar-form-{{event.id}}');
-				new Ajax.Updater( $('eventcontainer{{event.id}}'), myform.readAttribute('action'), {
-				  parameters: myform.serialize(true),
-				});
-				"/>	
+				<input type="button" value="Update" onclick="submit_form($('calendar-form-{{event.id}}'), $('eventcontainer{{event.id}}'));">
+			
 				<input type="button" value="Delete" onclick="myform = $('calendar-form-{{event.id}}');
 				new Ajax.Updater( $('calendar-content'), '/cal/{{event.id}}/delete/', {
 				  parameters: myform.serialize(true),
 				});
 				"/>
 			{% else %}
-				<input type="button" value="Create" onclick="myform = $('calendar-form-{{event.id}}');
-				new Ajax.Updater( $('eventcontainer{{event.id}}'), myform.readAttribute('action'), {
-				  parameters: myform.serialize(true),
-				});
-				"/>
+				<input type="button" value="Create" onclick="submit_form($('calendar-form-{{event.id}}'), $('eventcontainer{{event.id}}'));">
 			{% endif %}
 
-			<a href="#" class="toggled" onclick="toggleView('calendar', '{{event.id}}', 0); return false;">Cancel</a>
+			<a href="#" class="toggled" onclick="toggleView('calendar', '{% if not new %}{{event.id}}{% endif %}', 0); return false;">Cancel</a>
             </dd>
             </dl>
 		</form>

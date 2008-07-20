@@ -134,8 +134,8 @@
 
 /* =calendar */
 #calendar {
-	border-bottom: 1px solid gray;
-	margin-bottom: 2em;
+	border-bottom: 1px solid gray; 
+ 	margin-bottom: 2em;
 	padding-bottom: 1em;
 }
 

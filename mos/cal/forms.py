@@ -1,5 +1,5 @@
-from django.newforms import ModelForm
-import django.newforms as forms
+from django.forms import ModelForm
+import django.forms as forms
 
 from fields import DateTimeCombiField
 from models import Event

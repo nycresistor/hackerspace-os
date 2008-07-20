@@ -1,20 +1,7 @@
 /* styling */
 
-ul.errorlist {
-        float: left;
-        margin: 0;
-        padding: 0;
-	border: 0px solid gray;
-    }
-.errorlist li {
-        border: 0px solid gray;    
-        display: block;
-	font-color: black;
-        margin: 0 0 0px;
-        padding: 2px 2px;
-	width : 50%;
-}
 #calendar-content {
+        width:100%;
 	float: left;
 	margin-bottom: 0.5em;
 }

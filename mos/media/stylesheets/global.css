@@ -53,3 +53,18 @@ td { background: white; padding: 3px 5px; vertical-align: top; }
 
 tr.even td {background-color: lightgray;}
 tr.odd td {background-color:white;}
+
+ul.errorlist {
+        float: left;
+        margin: 0;
+        padding: 0;
+	border: 0px solid gray;
+    }
+.errorlist li {
+        border: 0px solid gray;    
+        display: block;
+	font-color: black;
+        margin: 0 0 0px;
+        padding: 2px 2px;
+	width : 50%;
+}
