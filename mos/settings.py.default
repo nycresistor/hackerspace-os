@@ -101,20 +101,20 @@ INSTALLED_APPS = (
     'mos.announce',
 )
 
+
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
 
+# Custom Options 
 
-HOME_EVENT_NUM = 5
-WIKI_URL = '/wiki/'
-ANNOUNCE_FROM = 'core@metalab.at'
+HOS_HOME_EVENT_NUM = 5
+HOS_WIKI_URL = 'wiki/'
+HOS_ANNOUNCE_FROM = 'core@yourdomain.org'
 
 
-	
-ustom Options 
-
+# ----------------- Style ---------------------
+HOS_CUSTOM_STYLE = '' # name of the custom style, blank for default
 HOS_METASENSE = False
-
 HOS_LOCATION_GALLERY = True
 HOS_MEMBER_GALLERY = True
 HOS_CALENDAR = True

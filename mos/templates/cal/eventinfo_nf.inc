@@ -1,5 +1,5 @@
 
-<div id="event-container-{{event_form.instance.id|default_if_none:""}}">
+<div id="eventcontainer{{event_form.instance.id|default_if_none:""}}">
 
 
 <p class="event {% ifequal event_error_id event_form.instance.id %}invisible{% endifequal%}  {% if event.past %}past_event{% else %}event{% endif %}" id="calendar-view-{{event_form.instance.id|default_if_none:""}}">

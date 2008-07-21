@@ -73,15 +73,15 @@ def display_main_page(request):
 def wikipage(request):
     
     path = request.path[10:-1]
-    url = "/%s/%s" % (settings.WIKI_URL, path)
+    url = "%s/%s" % (settings.HOS_WIKI_URL, path)
     page = urllib2.urlopen(url).read()
     
     start = page.find('<!-- start content -->')
     end = page.find('<!-- end content -->')
     page = page[start:end]
     
-    page = re.compile('href="\/wiki').sub("href=\"%s" % settings.WIKI_URL, page)
-    page = re.compile('src="\/wiki').sub("src=\"%s" % settings.WIKI_URL, page)
+    page = re.compile('href="\/wiki').sub("href=\"%s" % settings.HOS_WIKI_URL, page)
+    page = re.compile('src="\/wiki').sub("src=\"%s" % settings.HOS_WIKI_URL, page)
     
     return render_to_response('wikipage.html', {
         'file' : page,

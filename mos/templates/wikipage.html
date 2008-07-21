@@ -20,7 +20,7 @@ var skin = "monobook";
 var stylepath = "/wiki/skins";
 var wgArticlePath = "/wiki/$1";
 var wgScriptPath = "/wiki";
-var wgServer = "http://metalab.at";
+var wgServer = "http://localhost/mediawiki";
 var wgCanonicalNamespace = "";
 var wgCanonicalSpecialPageName = false;
 var wgNamespaceNumber = 0;
@@ -47,6 +47,16 @@ var wgCurRevisionId = "14210";
 */
 @import "/wiki/index.php?title=-&action=raw&gen=css&maxage=18000";
 /*]]>*/</style>
+
+
+<div id="p-search" class="portlet">
+  <div id="searchBody" class="pBody">
+    <form id="searchform" action="/wiki/Spezial:Suche">
+      <input id="searchInput" type="text" value="" accesskey="f" title="Metalab durchsuchen [alt-f]" name="search"/>
+      <input id="mw-searchButton" class="searchButton" type="submit" value="Suche" name="fulltext"/>
+    </form>
+   </div>
+</div>
 
 {{ file|safe }}
 

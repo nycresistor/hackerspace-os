@@ -1,5 +1,5 @@
-<div id='project-container-{{project.id}}'>
-	<p class="project visible {% cycle odd,even %}" id='project-view-{{project.id}}'>
+<div id='projectcontainer{{project.id}}'>
+	<p class="project visible {% cycle odd,even %}" id="project-view-{{project.id}}">
 		{% if project.wikiPage %}<a href="/wiki/{{ project.wikiPage }}"> {% endif %}{{ project.name }}{% if project.wikiPage %}</a>{% endif %}
 		{% if user.is_authenticated %}<a href='#' class="{%if not new %}hoverHidden{%endif%}" onclick="toggleView('project','{{project.id}}', 1); return false;">{%if not new %}Edit{%else%}Create New Project{%endif%}</a>{% endif %}{% if project.teaser %}<br/><small>{{ project.teaser }}</small>{%endif%}
 	</p>
@@ -24,14 +24,14 @@
 			<dt style="visibility: hidden">Submit:</dt>
 			<dd style="text-align: right">
 			{% if not new %}
-				<input type="button" value="Update" class="btn-update" onclick=" submit_form($('project-form-{{project.id}}'), $('project-container-{{project.id}}'));">
+				<input type="button" value="Update" class="btn-update" onclick=" submit_form($('project-form-{{project.id}}'), $('projectcontainer{{project.id}}'));">
 				<input type="button" value="Delete" class="btn-delete" onclick="myform = $('project-form-{{project.id}}');
 				new Ajax.Updater( $('projects-content'), '/project/{{project.id}}/delete/', {
 				  parameters: myform.serialize(true),
 				});
 				"/>
 			{% else %}
-				<input type="button" class="btn-create" value="Create" onclick=" submit_form($('project-form-{{project.id}}'), $('project-container-{{project.id}}'));">
+				<input type="button" class="btn-create" value="Create" onclick=" submit_form($('project-form-{{project.id}}'), $('projectcontainer{{project.id}}'));">
 				
 			{% endif %}
 

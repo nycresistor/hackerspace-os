@@ -1,4 +1,6 @@
 from django.conf.urls.defaults import *
+from django.contrib import admin
+
 from cal.feeds import EventFeed
 
 import settings
@@ -29,15 +31,19 @@ urlpatterns = patterns('',
  
  # doesnt work with recent django
  #  (r'^admin/', include('django.contrib.admin.urls')), 
-    (r'^admin/jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
+#    (r'^admin/jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
 
+    (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+
+        # Uncomment this for admin:
+    ('^admin/(.*)', admin.site.root),
 
     (r'^login/?$', 'django.contrib.auth.views.login'),
     (r'^logout/?$', 'django.contrib.auth.views.logout', {'next_page':'/'}),
 
     (r'^member/', include('mos.members.urls')),
     
-    (r'^wikipage/.*$', 'mos.web.views.wikipage'),
+    (r'^wiki/.*$', 'mos.web.views.wikipage'),
 #    (r'^usbherelist/', include('mos.usbherelist.urls')),
 
     (r'^announce/$', include('mos.announce.urls'))

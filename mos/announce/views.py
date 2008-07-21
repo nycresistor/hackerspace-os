@@ -33,7 +33,7 @@ def announce(request):
         try:
             send_mail(form.cleaned_data['subject'],
                       form.cleaned_data['body'],
-                      settings.ANNOUNCE_FROM,
+                      settings.HOS_ANNOUNCE_FROM,
                       [user.email],
                       fail_silently=False)
             ci.last_email_ok = True

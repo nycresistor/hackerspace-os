@@ -39,8 +39,8 @@ class FutureEventFixedNumberManager(EventManager):
         """ Get <num> future events, or if there aren't enough, get <num> latest+future events. """
 
         DEFAULT_NUM = 5
-        if(hasattr(settings,'HOME_EVENT_NUM')):
-            num = settings.HOME_EVENT_NUM
+        if(hasattr(settings,'HOS_HOME_EVENT_NUM')):
+            num = settings.HOS_HOME_EVENT_NUM
         else:
             num = DEFAULT_NUM
 
