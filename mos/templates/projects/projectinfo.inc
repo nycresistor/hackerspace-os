@@ -24,14 +24,10 @@
 			<dt style="visibility: hidden">Submit:</dt>
 			<dd style="text-align: right">
 			{% if not new %}
-				<input type="button" value="Update" class="btn-update" onclick=" submit_form($('project-form-{{project.id}}'), $('projectcontainer{{project.id}}'));">
-				<input type="button" value="Delete" class="btn-delete" onclick="myform = $('project-form-{{project.id}}');
-				new Ajax.Updater( $('projects-content'), '/project/{{project.id}}/delete/', {
-				  parameters: myform.serialize(true),
-				});
-				"/>
+				<input type="button" value="Update" class="btn-update" onclick=" submit_form('project', '{{project.id}}');">
+				<input type="button" value="Delete" class="btn-delete" onclick="delete_entry('project', '{{project.id}}');">
 			{% else %}
-				<input type="button" class="btn-create" value="Create" onclick=" submit_form($('project-form-{{project.id}}'), $('projectcontainer{{project.id}}'));">
+				<input type="button" class="btn-create" value="Create" onclick=" submit_form('project', '{{project.id}}');">
 				
 			{% endif %}
 

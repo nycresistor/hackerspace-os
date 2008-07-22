@@ -1,10 +1,19 @@
-function submit_form(form, container){
-    myform = form;
-    new Ajax.Updater(container, myform.readAttribute('action'), {
+function submit_form(type, id){
+    myform = $(type + '-form-' + id);
+    new Ajax.Updater($(type + 'container' + id), myform.readAttribute('action'), {
 	              parameters: myform.serialize(true),
-		});
-
+    });
+ 
 }
+
+function delete_entry(type, id){
+    myform = $(type + '-form-' + id);
+    new Ajax.Updater( $(type + '-content'), '/' + type + '/'  + id + '/delete/', {
+		parameters: myform.serialize(true),
+    });
+    
+}
+   
 
 function toggleView(type, id, onoff) {
     view = $(type + '-view-' + id);

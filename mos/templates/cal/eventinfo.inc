@@ -1,14 +1,14 @@
 {% load cal_tags %}
 
-<div id='eventcontainer{{event.id}}'>
+<div id='calendarcontainer{{event.id}}'>
 
     <p class="event visible {% if event.past %}past_event{% else %}event{% endif %}" id='calendar-view-{{event.id}}'>
     {% if not new %} 
        <span class="event_date">{{ event.startDate|date:"D d.m.Y H:i" }} {% if event.endDate %} - {% if event.start_end_date_eq %} {{ event.endDate|date:"H:i" }} {% else %} {{ event.endDate|date:"D d.m.Y H:i" }} {% endif %} {% endif %} </span>      
       		{% if event.wikiPage %}<a href="/wiki/{{event.wikiPage}}"> {% endif %}{{ event.name }}{% if event.wikiPage %}</a>{% endif %}
 		{% if event.teaser %}<span class="teaser">{{ event.teaser }}</span>{% endif %}
-		{% if event.category %}<span class="category"> | <a href="/cal/special/Category/{{ event.category }}/">{{ event.category }}</a></span>{% endif %}
-		{% if event.location%}<span class="location"> | <a href="/cal/special/Location/{{ event.location }}/">{{ event.location }}</a></span>{% endif %}
+		{% if event.category %}<span class="category"> | <a href="/calendar/special/Category/{{ event.category }}/">{{ event.category }}</a></span>{% endif %}
+		{% if event.location%}<span class="location"> | <a href="/calendar/special/Location/{{ event.location }}/">{{ event.location }}</a></span>{% endif %}
 
     {% endif %}
 {% if user.is_authenticated %}
@@ -18,7 +18,7 @@
 	</p>
 	{% if user.is_authenticated %}
     <div class="invisible  edit" id='calendar-edit-{{event.id}}'>
-		<form id='calendar-form-{{event.id}}' method="post" action="/cal/{% if new %}new{%else%}{{event.id}}/update{%endif%}/" onsubmit="return false;" onKeyPress="if(enter_pressed(event)){  submit_form($('calendar-form-{{event.id}}'), $('eventcontainer{{event.id}}')); }">
+		<form id='calendar-form-{{event.id}}' method="post" action="/calendar/{% if new %}new{%else%}{{event.id}}/update{%endif%}/" onsubmit="return false;" onKeyPress="if(enter_pressed(event)){  submit_form($('calendar-form-{{event.id}}'), $('eventcontainer{{event.id}}')); }">
 
             <dl>
 
@@ -63,15 +63,11 @@
             <dt style="visibility: hidden">Submit:</dt>
             <dd style="text-align: right;">
 			{% if not new %}
-				<input type="button" value="Update" onclick="submit_form($('calendar-form-{{event.id}}'), $('eventcontainer{{event.id}}'));">
+				<input type="button" value="Update" onclick="submit_form('calendar', '{{event.id}}');">
 			
-				<input type="button" value="Delete" onclick="myform = $('calendar-form-{{event.id}}');
-				new Ajax.Updater( $('calendar-content'), '/cal/{{event.id}}/delete/', {
-				  parameters: myform.serialize(true),
-				});
-				"/>
+				<input type="button" value="Delete" onclick="delete_entry('calendar', '{{event.id}}');"/>
 			{% else %}
-				<input type="button" value="Create" onclick="submit_form($('calendar-form-{{event.id}}'), $('eventcontainer{{event.id}}'));">
+				<input type="button" value="Create" onclick="submit_form('calendar', '{{event.id}}');">
 			{% endif %}
 
 			<a href="#" class="toggled" onclick="toggleView('calendar', '{% if not new %}{{event.id}}{% endif %}', 0); return false;">Cancel</a>

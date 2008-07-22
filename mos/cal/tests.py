@@ -1,10 +1,10 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.test.client import Client
-from django.contrib.auth.models import User
-import copy  # used to copy dictionaries
 
-from forms import EventForm
-from models import Event
+from mos.cal.forms import EventForm
+from mos.cal.models import Event
+
 
 correct_data = {'name' : 'TestEvent1',
                 'teaser' : 'Event des Jahres',
@@ -14,6 +14,8 @@ correct_data = {'name' : 'TestEvent1',
                 'endDate_0' : '2009-04-02',
                 'endDate_1' : '14:00'
                 }
+
+
 
 class EventFormTest(TestCase):
     fixtures = ['initial_user.json']

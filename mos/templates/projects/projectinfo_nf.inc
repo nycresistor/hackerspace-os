@@ -28,14 +28,10 @@
 			<dt style="visibility: hidden">Submit:</dt>
 			<dd style="text-align: right">
 			{% if not new %}
-				<input type="button" value="Update" class="btn-update" onclick=" submit_form($('project-form-{{project_form.instance.id|default_if_none:""}}'), $('projectcontainer{{project_form.instance.id|default_if_none:""}}'));">
-				<input type="button" value="Delete" class="btn-delete" onclick="myform = $('project-form-{{project_form.instance.id|default_if_none:""}}');
-				new Ajax.Updater( $('projects-content'), '/project/{{project_form.instance.id|default_if_none:""}}/delete/', {
-				  parameters: myform.serialize(true),
-				});
-				"/>
+				<input type="button" value="Update" class="btn-update" onclick="submit_form('project', '{{project_form.instance.id|default_if_none:""}}');">
+				<input type="button" value="Delete" class="btn-delete" onclick="delete_entry('project', '{{project_form.instance.id|default_if_none:""}}');/">
 			{% else %}
-				<input type="button" class="btn-create" value="Create" onclick=" submit_form($('project-form-{{project_form.instance.id|default_if_none:""}}'), $('projectcontainer{{project_form.instance.id|default_if_none:""}}'));">
+				<input type="button" class="btn-create" value="Create" onclick="submit_form('project', '{{project_form.instance.id|default_if_none:""}}');">
 				
 			{% endif %}
 

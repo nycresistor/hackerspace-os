@@ -20,7 +20,7 @@ urlpatterns = patterns('',
  #   (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),    
 
 
-    (r'^cal/', include('mos.cal.urls')),
+    (r'^calendar/', include('mos.cal.urls')),
     (r'^rss/', include('mos.rss.urls')),
     
     (r'^project/', include('mos.projects.urls')),

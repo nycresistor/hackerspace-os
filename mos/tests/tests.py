@@ -1,10 +1,12 @@
+import time
+
 from django.test import TestCase
 from django.test.client import Client
 from django.contrib.auth.models import User
 import copy  # used to copy dictionaries
 
-from forms import EventForm
-from models import Event
+from mos.cal.forms import EventForm
+from mos.cal.models import Event
 
 correct_data = {'name' : 'TestEvent1',
                 'teaser' : 'Event des Jahres',
