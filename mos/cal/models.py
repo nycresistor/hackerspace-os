@@ -16,19 +16,14 @@ class Category(models.Model):
     def __str__(self):
         return u"%s" % self.name
     
-    class Admin:
-        pass
 
 class Location(models.Model):
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=200)
 
-
     def __str__(self):
         return u"%s" % self.name
 
-    class Admin:
-        pass
 
 class EventManager(models.Manager):
     def get_query_set(self):
@@ -81,9 +76,6 @@ class Event(models.Model):
     objects = models.Manager()
     all = EventManager()
     future = FutureEventFixedNumberManager()
-    
-    class Admin:
-        pass
         
     def __unicode__(self):
         status = ''
@@ -105,7 +97,6 @@ class Event(models.Model):
            
         super(Event, self).save()
             
-
     def start_end_date_eq(self):
         return self.startDate.date() == self.endDate.date()
 

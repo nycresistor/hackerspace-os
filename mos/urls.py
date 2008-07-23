@@ -1,20 +1,17 @@
+import settings
+
 from django.conf.urls.defaults import *
 from django.contrib import admin
 
-from cal.feeds import EventFeed
-
-import settings
+from mos.admin import calendar_admin, project_admin, member_admin
+from mos.cal.feeds import EventFeed
 
 feeds = {
         'events': EventFeed,
         }
 
 
-# used for 
-js_info_dict = {
-    		'packages': ('django.conf',),
-	       }
-
+admin.autodiscover()
 
 urlpatterns = patterns('',
  #   (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),    
@@ -29,14 +26,12 @@ urlpatterns = patterns('',
     
     (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
  
- # doesnt work with recent django
- #  (r'^admin/', include('django.contrib.admin.urls')), 
-#    (r'^admin/jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
 
+    (r'^admin/calendar/(.*)', calendar_admin.root),
+    (r'^admin/projects/(.*)', project_admin.root), 
+    (r'^admin/members/(.*)', member_admin.root), 
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-        # Uncomment this for admin:
-    ('^admin/(.*)', admin.site.root),
+    (r'^admin/(.*)', admin.site.root),
 
     (r'^login/?$', 'django.contrib.auth.views.login'),
     (r'^logout/?$', 'django.contrib.auth.views.logout', {'next_page':'/'}),

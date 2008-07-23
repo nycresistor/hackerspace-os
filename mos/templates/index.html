@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 
-
-
 {% block content %}
 {% if not gallery and not members and introduction_text %}
 	<div id="introduction_text">
@@ -26,7 +24,7 @@
 
      {% if calendar %}
      	<div id="calendar">
-      	    <h1><a href="/cal" title="Veranstaltungen">Events</a></h1>
+      	    <h1><a href="/calendar/" title="Veranstaltungen">Events</a></h1>
 		{% include "cal/calendar.inc" %}
         </div>
     {% endif %}

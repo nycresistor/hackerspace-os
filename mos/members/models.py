@@ -161,16 +161,12 @@ class Payment(models.Model):
     date = models.DateField()
     method = models.ForeignKey('PaymentMethod')
     user = models.ForeignKey(User)
-    class Admin:
-        list_display = ('user', 'date', 'amount', 'method', 'comment')
-    
+      
     def __unicode__(self):
         return u"%s" % self.user.username
 
 class PaymentMethod(models.Model):
     name = models.CharField(max_length=50)
-    # class Admin:
-    #     pass
-    
+      
     def __unicode__(self):
         return u"%s" % self.name
