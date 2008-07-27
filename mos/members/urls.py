@@ -22,6 +22,6 @@ urlpatterns = patterns('',
     (r'^change_password/done/$', 'django.contrib.auth.views.password_change_done'),
     (r'^collection/$', 'mos.members.views.members_bankcollection_list'),
     (r'^(?P<user_username>\w+)/$', 'mos.members.views.members_details'), #this should be a generic view in version2
-    (r'^(?P<user_username>\w+)/update/(?P<type>\w+)/$', 'mos.members.views.members_update'), #this should be a generic view in version2
+    (r'^(?P<user_username>\w+)/update/(?P<update_type>\w+)/$', 'mos.members.views.members_update'), #this should be a generic view in version2
 
 )

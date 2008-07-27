@@ -10,6 +10,7 @@ from dateutil.rrule import *
 
 from mos.members.models import *
 from mos.members.util import *
+from mos.members.forms import UserEmailForm, UserNameForm, UserAdressForm
 
 import sys
 
@@ -23,38 +24,41 @@ def members_history(request):
     history_list.reverse()
     return render_to_response('members/members_history.html', {'list': history_list}, context_instance=RequestContext(request))
 
-def members_details(request, user_username, errors=""):
+def members_details(request, user_username, errors="", update_type=""):
     editable = False
     if request.user.username == user_username :    
         editable = True
     user = get_object_or_404(User, username = user_username)
-    return render_to_response('members/members_details.html', {'item': user, 'ea' : editable, 'errors' : errors}, context_instance=RequestContext(request))
+    return render_to_response('members/members_details.html', {'item': user, 
+                                                               'ea' : editable, 
+                                                               'error_form' : errors,
+                                                               'error_type' : update_type
+                                                               }, 
+                              context_instance=RequestContext(request))
 
-def members_update(request,user_username, type):
+def members_update(request,user_username, update_type):
     if not request.POST or not request.user.username == user_username :
         return members_details(request, user_username, "no permission to edit settings")
     user = get_object_or_404(User, username = user_username)    
-    if type == "email" :
-        user.email = request.POST['email']
-    if type == "name" :
-        user.first_name = request.POST['first_name']
-        user.last_name = request.POST['last_name']
 
-    if type == "adress" :
-        try :
-            ci = ContactInfo.objects.get(user = user)
-            for t in ['street','postcode','city','country'] :
-                setattr(ci, t, request.POST[t])
-            ci.save()
-        except ObjectDoesNotExist :
-            errors = {'ContactInfo error':'no table contactinfo!'}
-            return members_details(request, user_username, errors)
+    error_form = False
+    error_type = False
 
+    if update_type == "email" and request.method == "POST":
+        update_form = UserEmailForm(request.POST, instance=user)
+    elif update_type == "name" and request.method == "POST" :
+        update_form = UserNameForm(request.POST,instance=user)
+    elif update_type == "adress" and request.method == "POST":
+        contact_info = get_object_or_404(ContactInfo, user=user)
+        update_form = UserAdressForm(request.POST, instance=contact_info)
+    
+    if update_form.is_valid():
+        update_form.save()
+    else:
+        error_form = update_form
+        error_type = update_type
 
-    errors = user.validate()
-    if not errors :
-        user.save()
-    return members_details(request, user_username, errors)
+    return members_details(request, user_username, error_form,error_type)
 
 @login_required
 def members_bankcollection_list(request):

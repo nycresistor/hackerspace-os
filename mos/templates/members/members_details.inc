@@ -1,4 +1,4 @@
-<table id="table_user_details">
+<table id="table_user_details" width="800">
 
 	<tr>
 		<td rowspan="40" width="100px" style="text-align:center">
@@ -11,29 +11,14 @@
 		<td width="150px"><b>Info</b></td>
 		<td></td>
 	</tr>
-{% if errors %}
-    <tr> 
-        <td colspan="3">
-            <div id="error_box" class="visible" style="border: 2px solid red; padding: 5px;"> 
-          
-                 Errors occured : <br/>
-                <ul>
-                {% for error,value in errors.items %}
-                    <li> {{ error }} : {{ value }} </li>
-                {% endfor %}                    
-                </ul>
-                <a href="#" class="toggled btn-cancel" onclick="set_invisible($('error_box')); return false;">Ok</a></dd>
-             </div>
-    </tr>
-{% endif %}    
 	<tr>
 		<td>Name:</td>
-        <td   ><div class="member visible {% cycle odd,even %}" id='member-view-name'></div>{{ item.first_name }} {{ item.last_name }} </td><td>{% if ea%}<a align="right" href='#'  onclick="set_visible($('member-edit-name')); return false;">Edit</a>{% endif %}</td>
+        <td>{{ item.first_name }} {{ item.last_name }} </td><td>{% if ea%}<a align="right" href='#'  onclick="set_visible($('member-edit-name')); return false;">Edit</a>{% endif %}</td>
     </tr>
     <tr>
          <td colspan="3">  
             {% if ea %}
-            <div class="edit invisible" id='member-edit-name' style="border: 1px solid black; padding: 5px;">
+            <div class="edit {% ifequal error_type "name" %} visible {% else %} invisible {% endifequal %}" id='member-edit-name' style="border: 1px solid black; padding: 5px;">
                 <form id='membmer-form-name' method="post" action="/member/{{user.username}}/update/name/" onsubmit="return false;" onKeyPress="
                 if(enter_pressed(event)) {
                     myform = $('member-form-name');
@@ -43,11 +28,14 @@
                 }
                 ">
                     <dt><label>First Name</label> - <label>Last Name</label></dt>
-                    <dd>
+		  {%  ifequal error_type "name" %}
+		    <dd>{{ error_form.first_name.errors.0 }}  {{ error_form.first_name }} - {{ error_form.last_name.errors.0 }}  {{ error_form.last_name }}</dd>
+		  {% else %}
+		    <dd>
                         <input name='first_name' id="member-first_name" type="text" value='{{item.first_name}}'/>  - 
                         <input name='last_name' id="member-last_name" type="text" value='{{item.last_name}}'/>
                     </dd>
-                    
+                  {% endifequal %}                    
                     <dt style="visibility: hidden">Submit:</dt>
                     <dd style="text-align: left">
                         <input type="button" value="Update" class="btn-update" onclick="
@@ -71,8 +59,26 @@
 
     	</tr>
     <tr>
-        <td colspan="2" class="changepwd"><a href="/member/change_password/" title="Change Password">Change Password</a></th>
+        <td colspan="3" class="changepwd"><a href="/member/change_password/" title="Change Password">Change Password</a></th>
     </tr>
+    <tr>
+        <td colspan="3"><a align="center" href="#" title="Change Userpic" onclick="set_visible($('member-edit-image')); return false">Change Userpic</a></th>
+    </tr>
+    <tr>
+	<td colspan="3">
+      	 {% if ea %}
+	   <div class="edit invisible" id="member-edit-image">
+	     <form id="member-form-image" methode="post" action="/member/update/image/">
+	     	 <input type="file" name="image"/><br/>
+		 <input type="submit" title="Update"/> 
+		 <a href="#" onclick="set_invisible($('member-edit-image')); return false;">Cancel</a>
+	     </form>
+	   </div>
+      	 {% endif %}
+	</td>
+    </tr>
+    	
+    
 	<tr>
 		<td><br></td>
 		<td></td>
@@ -88,7 +94,7 @@
     <tr>    
          <td colspan="3">  
             {% if ea %}
-            <div class="edit invisible" id='member-edit-email' style="border: 1px solid black; padding: 5px; width:100%;">
+            <div class="edit {% ifequal error_type "email" %} visible {% else %} invisible {% endifequal %}" id='member-edit-email' style="border: 1px solid black; padding: 5px; width:100%;">
                 <form id='membmer-form-email' method="post" action="/member/{{user.username}}/update/email/" onsubmit="return false;" onKeyPress="
                 if(enter_pressed(event)) {
                     myform = $('member-form-email');
@@ -97,9 +103,13 @@
                     });
                 }
                 ">
+		  {% ifequal error_type "email" %}
+		    <dt>New Email</dt>
+		    <dd>{{ error_form.email.errors.0 }}   {{ error_form.email }} </dd>
+		  {% else %}
                     <dt>New Email </dt>
                     <dd><input name='email' id="member-email" type="text" value='{{item.email}}' size="40"/></dd>
-                    
+                  {% endifequal %}
             
                     <dt style="visibility: hidden">Submit:</dt>
                     <dd style="text-align: left">
@@ -124,7 +134,7 @@
     <tr>
         <td colspan="3">
             {% if ea %}
-            <div class="edit invisible" id='member-edit-adress' style="border: 1px solid black; padding: 5px; width:100%;">
+            <div class="edit  {% ifequal error_type "adress" %} visible {% else %} invisible {% endifequal %}"  id='member-edit-adress' style="border: 1px solid black; padding: 5px; width:100%;">
                 <form id='membmer-form-adress' method="post" action="/member/{{user.username}}/update/adress/" onsubmit="return false;" onKeyPress="
                 if(enter_pressed(event)) {
                     myform = $('member-form-adress');
@@ -134,6 +144,15 @@
                 }
                 ">
                     <dt><label>Street</label> - <label>Postcode</label></dt>
+		  {% ifequal error_type "adress" %}
+		    <dd>{{ error_form.street.errors.0 }}  {{ error_form.street }} - {{ error_form.postcode.errors.0 }}  {{ error_form.postcode }}</dd>
+
+                    <dt><label>City</label> - <label>Country</label></dt>
+
+		    <dd>{{ error_form.city.errors.0 }}  {{ error_form.city }} - {{ error_form.country.errors.0 }}  {{ error_form.country }} </dd>
+
+		  {% else %}
+
                     <dd>
                         <input name='street' id="member-street" type="text" value='{{ item.contactinfo_set.all.0.street }}'/>  - 
                         <input name='postcode' id="member-postcode" size="6" type="text" value=' {{ item.contactinfo_set.all.0.postcode }}'/>
@@ -142,6 +161,7 @@
                         <input name='city' id="member-city" type="text" value=' {{ item.contactinfo_set.all.0.city }}'/> - 
                         <input name='country' id="member-country" type="text" value=' {{ item.contactinfo_set.all.0.country }}'/>
                     </dd>
+		  {% endifequal %}
 
                     <dt style="visibility: hidden">Submit:</dt>
                     <dd style="text-align: left">

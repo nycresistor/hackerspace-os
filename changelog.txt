@@ -4,3 +4,11 @@ when adding a new User (Member) you create a MembershipPeriod from the day of en
 of the month with KindOfMembership=free, then you create a another MembershipPeriod from the first
 day of the next month with a KindOfMembership=normal (leave field 'until' empty)
 
+
+HISTORY STARTS NOW : 19.07.2008
+
+== 19.07.2008 ==
+	* the style of the page can be customized via the settings.py
+	* added stylesheet for ccc_linz style
+
+

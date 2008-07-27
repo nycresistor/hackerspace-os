@@ -1,4 +1,4 @@
-<h1>Metalab Mitglieder</h1>
+<h1>{{ HOS_NAME }} Members</h1>
 <table width="100%" align="center" id="table_user_list">
 {% for item in object_list %}
 	<tr class="{% cycle even,odd %}">

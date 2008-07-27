@@ -29,7 +29,7 @@ class ContactInfo(models.Model):
     birthday = models.DateField(null=True, blank=True)
 
     wiki_name = models.CharField(max_length=50, blank=True, null=True)
-    image = models.ImageField(upload_to='userpics', blank=True)
+    image = models.ImageField(upload_to='userpics/', blank=True)
 
     user = models.ForeignKey(User, unique=True, edit_inline=models.STACKED, num_in_admin=1, max_num_in_admin=1)
 
