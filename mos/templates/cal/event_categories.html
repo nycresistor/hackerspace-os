@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 
 {% load cal_tags %}
+
 {% block title %}Metalab - Calendar{% endblock %}
+
+{% block add_css %}
+    <link href="/site_media/stylesheets/cal.css" media="screen" rel="Stylesheet" type="text/css" />
+{% endblock %} 
 
 {% block content %}
 <div id="header">
@@ -16,7 +21,7 @@
   {% for category in object_list %}
      <p> <b>{{category.name}}</b> / {{category.description}}</p>
      
-     {% with test|get_events_by_category:category.name as latestevents %}
+     {% with events|get_events_by_category:category.name as latestevents %}
       {% with "True" as disable_create %}
        {% include 'cal/calendar.inc' %}
       {% endwith %}

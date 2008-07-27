@@ -2,7 +2,11 @@
 
 {% block title %}{{ HOS_NAME }} - Calendar{% endblock %}
 
-{% block content %}
+{% block add_css %}
+    <link href="/site_media/stylesheets/cal.css" media="screen" rel="Stylesheet" type="text/css" />
+{% endblock %}
+
+{% block hos_content %}
 <div id="header">
 	<div id="branding">
 		<h1 id="site-name">Metalab Calendar</h1>

@@ -67,8 +67,9 @@
 
 	<tr>
 		<td>Member since:</td>
-		<td>{{ item.contactinfo_set.all.0.get_date_of_entry|date }}</td>
-	</tr>
+	        <td>{{ item.contactinfo_set.all.0.get_date_of_entry|date }}</td>
+
+    	</tr>
     <tr>
         <td colspan="2" class="changepwd"><a href="/member/change_password/" title="Change Password">Change Password</a></th>
     </tr>

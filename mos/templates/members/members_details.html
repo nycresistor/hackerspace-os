@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block add_css %}
+    <link href="/site_media/stylesheets/members.css" media="screen" rel="Stylesheet" type="text/css" />
+{% endblock %}
+
+
+
+{% block hos_content %}
 	<h1>User profile: {{ item }}</h1>
 	{% if user.is_superuser %}
 		{% include 'members/members_details.inc' %}	

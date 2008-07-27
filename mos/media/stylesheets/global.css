@@ -68,3 +68,12 @@ ul.errorlist {
         padding: 2px 2px;
 	width : 50%;
 }
+
+/* action */
+.invisible {
+    display: none;
+}
+
+.visible {
+    display: block;
+}

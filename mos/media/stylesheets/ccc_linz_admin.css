@@ -1,0 +1,21 @@
+a.addlink, a.viewsitelink {
+	color: #B30036; 
+	text-decoration: none;
+}
+#header { background:white; color:black; overflow:hidden; }
+
+
+#header a:link, #header a:visited { 	color: #B30036; 
+	text-decoration: none }
+#header a:hover { 	color: #B30036; 
+	text-decoration: none }
+
+.module a {
+	color: #B30036; 
+	text-decoration: none;
+}
+
+
+.module h2, .module caption {
+    background: grey;
+}

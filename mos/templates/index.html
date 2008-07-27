@@ -1,13 +1,19 @@
 {% extends "base.html" %}
 
-{% block content %}
-{% if not gallery and not members and introduction_text %}
+{% block add_css %}
+    <link href="/site_media/stylesheets/projects.css" media="screen" rel="Stylesheet" type="text/css" />
+    <link href="/site_media/stylesheets/members.css" media="screen" rel="Stylesheet" type="text/css" />
+    <link href="/site_media/stylesheets/cal.css" media="screen" rel="Stylesheet" type="text/css" />
+{% endblock %}
+
+{% block hos_content %}
+  {% if not gallery and not members and introduction_text %}
 	<div id="introduction_text">
 	           Introduction
 	</div>
-{% endif %}
+  {% endif %}
 
-<div id="column_1">
+  <div id="column_1">
 	
      {% if gallery %}	
 	<div id="gallery">
@@ -34,9 +40,9 @@
           foo 
     	</div>
     {% endif %}
-</div>
+  </div>
 
-<div id="column_2">
+  <div id="column_2">
 	
      {% if members %}	
 	<div id="members">
@@ -68,5 +74,5 @@
 		{% include "rss/recentchanges.inc" %}
 	  </div>
      {% endif %}
-</div>
+  </div>
 {% endblock %}

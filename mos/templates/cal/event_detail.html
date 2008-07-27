@@ -1,6 +1,9 @@
-{% load cal-newforms %}
-
 {% extends 'base.html' %}
+
+{% block add_css %}
+    <link href="/site_media/stylesheets/cal.css" media="screen" rel="Stylesheet" type="text/css" />
+{% endblock %}
+
 {% block title %}Metalab Event: {{ event.name }}{% endblock %}
 {% block content %}
     {% if user.is_authenticated %}

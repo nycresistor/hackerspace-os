@@ -4,6 +4,7 @@ import datetime
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist
 
 class PaymentInfo(models.Model):
     bank_collection_allowed = models.BooleanField()
@@ -83,7 +84,7 @@ class ContactInfo(models.Model):
         else:
             return None
         return mp.begin
-    
+        
     def get_wikilink(self):
         if self.wiki_name==None:
             return None

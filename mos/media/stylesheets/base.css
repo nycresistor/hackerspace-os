@@ -4,7 +4,9 @@
 */
 
 /* Block IE 5 */
+/*
 @import "null.css?\"\{";
+*/
 
 /* Import other styles */
 @import url('/site_media/stylesheets/reset.css');

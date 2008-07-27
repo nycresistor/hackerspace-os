@@ -1,21 +1,17 @@
-import os, sys, random, urllib2, re
-from mos import settings
+import os, random, urllib2, re
 from stat import *
-from django.http import Http404, HttpResponseRedirect, HttpResponse
-from django.template import RequestContext
-from django.shortcuts import render_to_response, get_object_or_404
 
 from django.contrib.auth.models import User
-
-from mos.core.context_processors import custom_settings_main
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from mos import settings
 from mos.cal.models import Event
-from mos.rss.models import Change
-from mos.projects.models import Project
+from mos.core.context_processors import custom_settings_main
 from mos.members.models import get_active_members
+from mos.projects.models import Project
+from mos.rss.models import Change
 from mos.usbherelist.views import get_herelist
 
-import random
-import datetime
 
 def gallery_images(top):
     imgs = []
