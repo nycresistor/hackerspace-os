@@ -31,7 +31,10 @@ class EventManager(models.Manager):
 
 class FutureEventFixedNumberManager(EventManager):
     def get_query_set(self):
-        """ Get <num> future events, or if there aren't enough, get <num> latest+future events. """
+        """ 
+	Get <num> future events, or if there aren't enough, 
+	get <num> latest+future events.
+	"""
 
         DEFAULT_NUM = 5
         if(hasattr(settings,'HOS_HOME_EVENT_NUM')):
@@ -39,9 +42,10 @@ class FutureEventFixedNumberManager(EventManager):
         else:
             num = DEFAULT_NUM
 
-        all = super(FutureEventFixedNumberManager,self).get_query_set().order_by('startDate')
-        future = all.filter(
-                            (Q(endDate__gte=datetime.datetime.now())) |
+        all = super(FutureEventFixedNumberManager,self).get_query_set().\
+	                                                order_by('startDate')
+
+        future = all.filter((Q(endDate__gte=datetime.datetime.now())) |
                             (Q(endDate__isnull=True) & Q(startDate__gte=datetime.datetime.now()-datetime.timedelta(hours=5)))).order_by('startDate') # event visible 5 hours after it started
 
         if(future.count()<num):
@@ -100,3 +104,5 @@ class Event(models.Model):
     def start_end_date_eq(self):
         return self.startDate.date() == self.endDate.date()
 
+    def delete(self):
+        self.deleted = True

@@ -1,5 +1,6 @@
 # Create your views here.
 from dateutil.parser import *
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
@@ -10,6 +11,10 @@ from mos.cal.models import Event, Category, Location
 
 
 def display_special_events(request, typ, name):
+    """ 
+    Displays special events by location or category 
+    """
+
     try:
         if typ == 'Category':
             events = Event.objects.filter(category__name=name)
@@ -39,8 +44,7 @@ def delete_event(request, object_id=None):
     
     event = Event.all.get(id=object_id)
     
-    #event.delete()
-    event.deleted = True
+    event.delete()
     event.save()
     
     latest = Event.future.all()

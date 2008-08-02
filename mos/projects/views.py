@@ -1,23 +1,25 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from mos.projects.models import Project
 
-from forms import ProjectForm
+from mos.projects.models import Project
+from mos.projects.forms import ProjectForm
 
 
 @login_required
 def update_project(request, new, object_id=None):
+    """ Updates or add a project and returns a view with a project form """
+
     if not request.POST or not request.user.is_authenticated():
         return
-
 
     if not new:
         project =  Project.all.get(id=object_id)
     else:
         project = Project()
 
-    project_error_id = '' # set event_error_id to '', if an error occurs it will be the error id
+    project_error_id = '' # set event_error_id to '', if an error 
+                          # occurs it will be the error id
  
     if request.method == 'POST' :
         project_form = ProjectForm(request.POST, instance=project)
@@ -45,18 +47,20 @@ def update_project(request, new, object_id=None):
 
 @login_required
 def delete_project(request, object_id=None):
+    """ Deletes the project with object_id """
     if not request.POST or not object_id or not request.user.is_authenticated():
         return
 
     project = Project.all.get(id=object_id)
 
-    #project.delete()
-    project.deleted = True
+    project.delete()
     project.save()
 
     return _get_latest(request)
 
 def _get_latest(request, current_project=None,errors=None,e_project_name=None):
+    """ Returns a view that displays the latest 5 projects """
+
     latest = Project.all.order_by('-created_at')[:5]
     return render_to_response('projects/overview.inc', 
                 { 'project': current_project,

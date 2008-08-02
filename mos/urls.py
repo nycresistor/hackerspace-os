@@ -6,16 +6,15 @@ from django.contrib import admin
 from mos.admin import calendar_admin, project_admin, member_admin
 from mos.cal.feeds import EventFeed
 
+
 feeds = {
         'events': EventFeed,
         }
-
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
  #   (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),    
-
 
     (r'^calendar/', include('mos.cal.urls')),
     (r'^rss/', include('mos.rss.urls')),
@@ -26,7 +25,6 @@ urlpatterns = patterns('',
     
     (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
  
-
     (r'^admin/calendar/(.*)', calendar_admin.root),
     (r'^admin/projects/(.*)', project_admin.root), 
     (r'^admin/members/(.*)', member_admin.root), 

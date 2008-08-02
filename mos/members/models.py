@@ -1,6 +1,6 @@
-from django.db import models
 import datetime
 
+from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models import Q
@@ -31,8 +31,8 @@ class ContactInfo(models.Model):
     wiki_name = models.CharField(max_length=50, blank=True, null=True)
     image = models.ImageField(upload_to='userpics/', blank=True)
 
-    user = models.ForeignKey(User, unique=True, edit_inline=models.STACKED, num_in_admin=1, max_num_in_admin=1)
-
+    user = models.ForeignKey(User, unique=True, edit_inline=models.STACKED, 
+                             num_in_admin=1, max_num_in_admin=1)
 
     last_email_ok = models.BooleanField(null=True)
     
@@ -57,7 +57,8 @@ class ContactInfo(models.Model):
         if mp_list.count() == 0:
             return 0
         else:
-            #find the membership fee for the month and kind of membership and return amount
+            #find the membership fee for the month and kind 
+	    #of membership and return amount
             mp = mp_list[0]
             fee = mp.kind_of_membership.membershipfee_set.filter(
                 Q(start__lte=date_in_month),
@@ -136,12 +137,12 @@ class MembershipPeriod(models.Model):
         return month
     
 class MembershipFee(models.Model):
-    '''
+    """
     Defines the membership fee for a certain period of time.
     With this class it is possible to define different amount of
     membership fees for different periods of time and for different
     kind of members, e.g. pupils, unemployees, normal members, ...
-    '''
+    """
     kind_of_membership = models.ForeignKey('KindOfMembership')
     start = models.DateField()
     end = models.DateField(null=True, blank=True)

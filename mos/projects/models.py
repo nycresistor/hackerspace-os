@@ -25,4 +25,7 @@ class Project(models.Model):
 
     def __str__(self):
     	return '%s' % (self.name)
-
+    
+    def delete(self):
+        self.deleted = True
+	self.save()
