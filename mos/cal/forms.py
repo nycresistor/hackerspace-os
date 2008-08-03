@@ -6,8 +6,8 @@ from mos.cal.models import Event
 
 
 class EventForm(ModelForm):
-    """ 
-    Form to add an event 
+    """
+    Form to add an event
     """
 
     startDate = DateTimeCombiField()
@@ -16,8 +16,5 @@ class EventForm(ModelForm):
 
     class Meta:
         model = Event
-        exclude = ('where','startDate','endDate','created_at','created_by',
-	           'deleted','who')
-
-
-
+        exclude = ('where', 'startDate', 'endDate', 'created_at',
+                   'created_by', 'deleted', 'who')

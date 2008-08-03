@@ -25,12 +25,14 @@ def gallery_images(top):
         if S_ISREG(mode):
             path = "site_media/gallerypics/%s" % os.path.basename(pathname)
             if pathname.find(".jpg") != -1:
-                imgs.append(path)        
+                imgs.append(path)
     return imgs
-    
+
+
 def flickr_link(name):
     name = name.split('_')[0]
-    return "http://flickr.com/photo_zoom.gne?id="+name+"&size=m" 
+    return "http://flickr.com/photo_zoom.gne?id="+name+"&size=m"
+
 
 def flickr_images(image_urls):
     images = []
@@ -40,13 +42,14 @@ def flickr_images(image_urls):
         images_dict['href'] = flickr_link(os.path.basename(image_url))
         images.append(images_dict)
     return images
-    
+
+
 def display_main_page(request):
     events = Event.future.all()
     changes = Change.objects.order_by('-updated')[:5]
     projects = Project.all.order_by('-created_at')[:5]
     randommembers = list(get_active_members().exclude(contactinfo__image="")\
-    							.order_by('?')[:7])
+                                                            .order_by('?')[:7])
     herelist = get_herelist()
 
     try:
@@ -61,38 +64,35 @@ def display_main_page(request):
     image_urls = gallery_images(path)
     random.shuffle(image_urls)
     image_urls = image_urls[:2]
-    images = flickr_images(image_urls)  
-        
+    images = flickr_images(image_urls)
+
     return render_to_response('index.html', {
-        'event_error_id' : ' ',
+        'event_error_id': ' ',
         'latestevents': events,
         'latestchanges': changes,
         'latestprojects': projects,
-        'images' : images,
+        'images': images,
         'randommembers': randommembers,
-        }, context_instance=RequestContext(request, 
-	                                   processors=[custom_settings_main])
-    )
-    
+        }, context_instance=RequestContext(request,
+                                           processors=[custom_settings_main]))
+
+
 def wikipage(request):
-    
+
     path = request.path[10:-1]
     url = "%s/%s" % (settings.HOS_WIKI_URL, path)
     page = urllib2.urlopen(url).read()
-    
+
     start = page.find('<!-- start content -->')
     end = page.find('<!-- end content -->')
     page = page[start:end]
-    
-    page = re.compile('href="\/wiki').sub("href=\"%s" % settings.HOS_WIKI_URL, \
-                                                                           page)
+
+    page = re.compile('href="\/wiki').sub("href=\"%s" % settings.HOS_WIKI_URL,\
+                                                                          page)
     page = re.compile('src="\/wiki').sub("src=\"%s" % settings.HOS_WIKI_URL, \
-                                                                           page)
-    
+                                                                          page)
+
     return render_to_response('wikipage.html', {
-        'file' : page,
+        'file': page
         }, context_instance=RequestContext(request)
-    )
-    
-    
-    
+)

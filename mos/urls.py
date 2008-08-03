@@ -39,5 +39,5 @@ urlpatterns = patterns('',
     (r'^wiki/.*$', 'mos.web.views.wikipage'),
 #    (r'^usbherelist/', include('mos.usbherelist.urls')),
 
-    (r'^announce/$', include('mos.announce.urls'))
+    (r'^announce/$', include('mos.announce.urls')),
 )
