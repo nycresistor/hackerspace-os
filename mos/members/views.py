@@ -10,7 +10,7 @@ from dateutil.rrule import *
 
 from mos.members.models import *
 from mos.members.util import *
-from mos.members.forms import UserEmailForm, UserNameForm, UserAdressForm
+from mos.members.forms import UserEmailForm, UserNameForm, UserAdressForm, UserImageForm
 
 import sys
 
@@ -38,20 +38,24 @@ def members_details(request, user_username, errors="", update_type=""):
 
 def members_update(request,user_username, update_type):
     if not request.POST or not request.user.username == user_username :
-        return members_details(request, user_username, "no permission to edit settings")
+        return members_details(request, user_username, "no permission to edit settings", "permission")
     user = get_object_or_404(User, username = user_username)    
 
     error_form = False
     error_type = False
 
+    print " \n " + update_type + " \n " 
+
     if update_type == "email" and request.method == "POST":
         update_form = UserEmailForm(request.POST, instance=user)
+
     elif update_type == "name" and request.method == "POST" :
-        update_form = UserNameForm(request.POST,instance=user)
+        update_form = UserNameForm(request.POST, instance=user)
+
     elif update_type == "adress" and request.method == "POST":
         contact_info = get_object_or_404(ContactInfo, user=user)
         update_form = UserAdressForm(request.POST, instance=contact_info)
-    
+
     if update_form.is_valid():
         update_form.save()
     else:
@@ -59,6 +63,7 @@ def members_update(request,user_username, update_type):
         error_type = update_type
 
     return members_details(request, user_username, error_form,error_type)
+
 
 @login_required
 def members_bankcollection_list(request):
@@ -87,3 +92,24 @@ def members_bankcollection_list(request):
     else:
         return HttpResponseNotAllowed('you are not allowed to use this method')
 
+
+def members_update_userpic(request, user_username):
+    print "update call"
+    if not request.user.username == user_username :
+        return members_details(request, user_username, "no permission to edit settings", "permission")
+    
+    if request.method == "POST": 
+        user = get_object_or_404(User, username = user_username)   
+        contact_info = get_object_or_404(ContactInfo, user=user)
+        image_form=UserImageForm(request.POST, request.FILES, instance=contact_info)       
+        if image_form.is_valid():
+            image_data = image_form.save()
+	    image_data.save()
+	    return members_details(request, user_username)
+
+    else:
+        image_form=UserImageForm()
+
+    return render_to_response('members/member_userpic_upload.html', 
+                              {'form': image_form},  
+                               context_instance=RequestContext(request))

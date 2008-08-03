@@ -1,10 +1,5 @@
 from django.conf.urls.defaults import *
-from mos import settings
 from mos.members.models import *
-from django.contrib.auth.models import User
-import datetime
-import django.views.generic.list_detail
-from django.db.models import Q
 
 
 info_dict = {
@@ -22,6 +17,7 @@ urlpatterns = patterns('',
     (r'^change_password/done/$', 'django.contrib.auth.views.password_change_done'),
     (r'^collection/$', 'mos.members.views.members_bankcollection_list'),
     (r'^(?P<user_username>\w+)/$', 'mos.members.views.members_details'), #this should be a generic view in version2
-    (r'^(?P<user_username>\w+)/update/(?P<update_type>\w+)/$', 'mos.members.views.members_update'), #this should be a generic view in version2
-
+    (r'^(?P<user_username>\w+)/update/userpic/$', 'mos.members.views.members_update_userpic'), #this should 
+    (r'^(?P<user_username>\w+)/update/(?P<update_type>\w+)/$', 'mos.members.views.members_update'), #this should 
+                       #be a generic view in version2
 )

@@ -1,5 +1,10 @@
 <table id="table_user_details" width="800">
-
+{% ifequal error_type "permission" %}
+   <tr>
+     <td colspan="3">
+     </td>
+   </tr>
+{% endifequal %}
 	<tr>
 		<td rowspan="40" width="100px" style="text-align:center">
 			{% if item.contactinfo_set.all.0.image %}
@@ -58,26 +63,16 @@
 	        <td>{{ item.contactinfo_set.all.0.get_date_of_entry|date }}</td>
 
     	</tr>
+{% if ea %}
+   <tr><td colspan="3"><hr/></td></tr>
     <tr>
-        <td colspan="3" class="changepwd"><a href="/member/change_password/" title="Change Password">Change Password</a></th>
+        <td colspan="3"><a href="/member/change_password/" title="Change Password">Change Password</a></th>
     </tr>
     <tr>
-        <td colspan="3"><a align="center" href="#" title="Change Userpic" onclick="set_visible($('member-edit-image')); return false">Change Userpic</a></th>
+        <td colspan="3"><a href="/member/{{user.username}}/update/userpic/" title="Change Userpic">Change Userpic</a></th>
     </tr>
-    <tr>
-	<td colspan="3">
-      	 {% if ea %}
-	   <div class="edit invisible" id="member-edit-image">
-	     <form id="member-form-image" methode="post" action="/member/update/image/">
-	     	 <input type="file" name="image"/><br/>
-		 <input type="submit" title="Update"/> 
-		 <a href="#" onclick="set_invisible($('member-edit-image')); return false;">Cancel</a>
-	     </form>
-	   </div>
-      	 {% endif %}
-	</td>
-    </tr>
-    	
+   <tr><td colspan="3"><hr/></td></tr>
+{% endif %}
     
 	<tr>
 		<td><br></td>
