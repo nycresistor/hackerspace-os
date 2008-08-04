@@ -1,17 +1,17 @@
 #!/usr/bin/python
-
-import feedparser, datetime
-
 import sys
-sys.path.append('/django/deployment')
-d = feedparser.parse('http://metalab.at/wiki/index.php?title=Spezial:Letzte_%C3%84nderungen&feed=atom')
+import feedparser
+import datetime
 
-import os
+sys.path.append('/var/www/hackspace/')
 os.environ['DJANGO_SETTINGS_MODULE'] = "mos.settings"
 
-from mos import settings
-
+import feedparser
+from django.conf import settings
 from mos.rss.models import Change
+
+
+d = feedparser.parse(settings.HOS_WIKI_CHANGE_URL)
 
 for x in d.entries:
     

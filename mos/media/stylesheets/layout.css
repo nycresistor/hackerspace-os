@@ -124,12 +124,12 @@
 /* =project */
 #project_list {
 	float: left;
-	width: 100%;
+	width: 50%;
 }
 
 #recent_changes {
 	float: right;
-	width: 249px;
+	width: 50%;
 }
 
 /* =calendar */
