@@ -63,11 +63,11 @@
             <dt style="visibility: hidden">Submit:</dt>
             <dd style="text-align: right;">
 			{% if not new %}
-				<input type="button" value="Update" onclick="submit_form('calendar', '{{event.id}}');">
+				<input type="button" value="Update" onclick="submit_event('{{event.id}}');">
 			
 				<input type="button" value="Delete" onclick="delete_entry('calendar', '{{event.id}}');"/>
 			{% else %}
-				<input type="button" value="Create" onclick="submit_form('calendar', '{{event.id}}');">
+				<input type="button" value="Create" onclick="submit_event('{{event.id}}');">
 			{% endif %}
 
 			<a href="#" class="toggled" onclick="toggleView('calendar', '{% if not new %}{{event.id}}{% endif %}', 0); return false;">Cancel</a>

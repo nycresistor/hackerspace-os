@@ -63,11 +63,11 @@
             <dd style="text-align: right;">
 			{% if not new %}
 
-				<input type="button" value="Update" onclick="submit_form('calendar', '{{event_form.instance.id|default_if_none:""}}');">
+				<input type="button" value="Update" onclick="submit_event('{{event_form.instance.id|default_if_none:""}}');">
 				<input type="button" value="Delete" onclick="delete_entry('calendar','{{event_form.instance.id|default_if_none:""}}');"> 
 			
             {% else %}
-				<input type="button" value="Create" onclick="submit_form('calendar', '{{event_form.instance.id|default_if_none:""}}');">
+				<input type="button" value="Create" onclick="submit_event('{{event_form.instance.id|default_if_none:""}}');">
             {% endif %}
 
 			<a href="#" class="toggled" onclick="toggleView('calendar', '{% if not new %}{{event_form.instance.id|default_if_none:""}}{% endif %}', 0); return false;">Cancel</a>

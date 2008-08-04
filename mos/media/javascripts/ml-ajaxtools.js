@@ -1,7 +1,7 @@
 function submit_form(type, id){
     myform = $(type + '-form-' + id);
     new Ajax.Updater($(type + 'container' + id), myform.readAttribute('action'), {
-	              parameters: myform.serialize(true),
+                  parameters: myform.serialize(true),
     });
  
 }
@@ -9,7 +9,7 @@ function submit_form(type, id){
 function delete_entry(type, id){
     myform = $(type + '-form-' + id);
     new Ajax.Updater( $(type + '-content'), '/' + type + '/'  + id + '/delete/', {
-		parameters: myform.serialize(true),
+        parameters: myform.serialize(true),
     });
     
 }
@@ -60,3 +60,19 @@ function enter_pressed(e){
 
 addEvent(window, 'load', do_on_load);
 
+
+function submit_event(id) {
+    var frm = $('calendar-form-'+id);
+    var cnt = $('calendar-edit-'+id);
+
+    new Ajax.Request(frm.readAttribute('action'), {
+                                                    parameters: frm.serialize(true),
+                                                    onSuccess: function(r) {
+                                                                            new Ajax.Updater('calendar-content', calendarUpdateURL);
+                                                                           },
+                                                    onFailure: function(r) {
+                                                                            cnt.innerHTML = r.responseText;
+                                                                            DateTimeShortcuts.init.defer(1);
+                                                                           }
+                                                  })
+}

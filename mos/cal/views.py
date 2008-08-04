@@ -56,7 +56,8 @@ def delete_event(request, object_id=None):
 @login_required
 def update_event(request, new, object_id=None):
     if not request.POST or not request.user.is_authenticated():
-        return
+        #return
+        pass
 
     if not new:
         event = Event.all.get(id=object_id)
@@ -64,6 +65,8 @@ def update_event(request, new, object_id=None):
         event = Event()
 
     event_error_id = ' '
+
+    event_valid = True
 
     if request.method == 'POST':
         event_form = EventForm(request.POST, instance=event)
@@ -73,14 +76,26 @@ def update_event(request, new, object_id=None):
             event_data.save(request.user, new)
             event = Event.objects.get(id=event_data.id)
         else:
+            print 'lolwhat'
+            event_valid = False
             event_error_id = event.id
 
     else:
         event_form = EventForm()
 
-    return render_to_response('cal/eventinfo_nf.inc', {
+    response = render_to_response('cal/eventinfo_nf.inc', {
             'event_error_id': event_error_id,
             'event_form': event_form,
             'event': event,
             'new': not event.pk,
             }, context_instance=RequestContext(request))
+
+    if not event_valid:
+        response.status_code = 500
+        print dir(response)
+    return response
+
+def list(request, number=0):
+    events = Event.future.get_n(long(number) if number != '' else 0)
+
+    return render_to_response('cal/calendar.inc', {'latestevents': events}, context_instance=RequestContext(request))

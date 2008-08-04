@@ -65,4 +65,6 @@ urlpatterns += patterns('',
      'django.views.generic.list_detail.object_list', info_dict_locations),
     (r'^categories/$',
      'django.views.generic.list_detail.object_list', info_dict_categories),
+
+    (r'^ajax/list/(?P<number>\d*)/?$', 'mos.cal.views.list'),
 )

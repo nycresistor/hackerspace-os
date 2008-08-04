@@ -39,15 +39,21 @@ class FutureEventFixedNumberManager(EventManager):
         Get <num> future events, or if there aren't enough,
         get <num> latest+future events.
         """
-
         DEFAULT_NUM = 5
         if(hasattr(settings, 'HOS_HOME_EVENT_NUM')):
             num = settings.HOS_HOME_EVENT_NUM
         else:
             num = DEFAULT_NUM
 
+        return self.get_n(num)
+
+    def get_n(self, num):
+
         all = super(FutureEventFixedNumberManager, self).get_query_set().\
                                                          order_by('startDate')
+
+        if num==0:
+            return all
 
         future = all.filter((Q(endDate__gte=datetime.datetime.now())) |
                             (Q(endDate__isnull=True) &
