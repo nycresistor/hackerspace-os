@@ -4,9 +4,16 @@ def custom_settings_global(request):
     """
     sets custom style and name for 
     """
+    
+    items = request.path.split('/')
+    if items[-2] == '':
+        came_from = 'root'
+    else:
+        came_from = items[-2]
 
     return {'custom_style': settings.HOS_CUSTOM_STYLE,
-            'HOS_NAME': settings.HOS_NAME 
+            'HOS_NAME': settings.HOS_NAME,
+            'came_from': came_from,
             }
 
 def custom_settings_wiki(request):

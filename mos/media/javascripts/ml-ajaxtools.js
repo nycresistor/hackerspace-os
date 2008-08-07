@@ -6,9 +6,10 @@ function submit_form(type, id){
  
 }
 
-function delete_entry(type, id){
+function delete_entry(type, id, came_from){
     myform = $(type + '-form-' + id);
-    new Ajax.Updater( $(type + '-content'), '/' + type + '/'  + id + '/delete/', {
+
+    new Ajax.Updater( $(type + '-content'), '/' + type + '/'  + id + '/delete/' + came_from + '/', {
         parameters: myform.serialize(true),
     });
     
