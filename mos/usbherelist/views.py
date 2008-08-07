@@ -27,6 +27,7 @@ def update_herelist(request):
         r.write('no file included')
     return r
 
+
 def serve_herelist(request, template):
     return render_to_response(template, {'herelist': get_herelist(), })
 
@@ -59,4 +60,3 @@ def get_herelist():
     logfile_fd.close()
 
     return herelist
-

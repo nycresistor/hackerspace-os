@@ -6,24 +6,9 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import permalink, Q
 
+from mos.core.models import Category, Location
 
 locale.setlocale(locale.LC_ALL, 'de_DE.UTF-8')
-
-
-class Category(models.Model):
-    name = models.CharField(max_length=30)
-    description = models.CharField(max_length=200)
-
-    def __str__(self):
-        return u"%s" % self.name
-
-
-class Location(models.Model):
-    name = models.CharField(max_length=30)
-    description = models.CharField(max_length=200)
-
-    def __str__(self):
-        return u"%s" % self.name
 
 
 class EventManager(models.Manager):
@@ -33,7 +18,6 @@ class EventManager(models.Manager):
 
 
 class FutureEventFixedNumberManager(EventManager):
-
     def get_query_set(self):
         """
         Get <num> future events, or if there aren't enough,
@@ -74,6 +58,10 @@ class FutureEventFixedNumberManager(EventManager):
 
 
 class Event(models.Model):
+    """
+    Represents an event
+    """
+    
     name = models.CharField(max_length=200)
     teaser = models.TextField(max_length=200, blank=True, null=True)
     wikiPage = models.CharField(max_length=200)

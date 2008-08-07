@@ -2,7 +2,9 @@ from django import template
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 
-from mos.cal.models import Location, Category, Event
+from mos.cal.models import Event
+from mos.core.models import Location, Category
+
 
 register = template.Library()
  
