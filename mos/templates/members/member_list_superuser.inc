@@ -15,7 +15,6 @@
             {# debts: {{ item.contactinfo_set.all.0.get_debts }} Euro #}
 		</td>
 		<td>
-			<a href="../admin/auth/user/{{ item.id }}">edit</a> <br>
 			{% if item.contactinfo_set.all.0.get_wikilink %}
 				<a href="{{ item.contactinfo_set.all.0.get_wikilink }}">wikiprofile</a><br>
 			{% endif %}

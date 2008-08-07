@@ -31,9 +31,6 @@ urlpatterns = patterns('',
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/(.*)', admin.site.root),
 
-    (r'^login/?$', 'django.contrib.auth.views.login'),
-    (r'^logout/?$', 'django.contrib.auth.views.logout', {'next_page':'/'}),
-
     (r'^member/', include('mos.members.urls')),
     
     (r'^wiki/.*$', 'mos.web.views.wikipage'),

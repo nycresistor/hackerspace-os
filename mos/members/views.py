@@ -1,18 +1,17 @@
-from django.http import Http404, HttpResponseRedirect, HttpResponse
-from django.template import RequestContext
-from django.shortcuts import render_to_response, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist
-
+__version__ = "$Revision$"
 
 from datetime import *
-from dateutil.rrule import *
 
+from dateutil.rrule import *
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import render_to_response, get_object_or_404
+from django.template import RequestContext
+
+from mos.members.forms import UserEmailForm, UserNameForm, UserAdressForm, UserImageForm
 from mos.members.models import *
 from mos.members.util import *
-from mos.members.forms import UserEmailForm, UserNameForm, UserAdressForm, UserImageForm
 
-import sys
 
 @login_required
 def members_history(request):
@@ -105,11 +104,11 @@ def members_update_userpic(request, user_username):
         if image_form.is_valid():
             image_data = image_form.save()
 	    image_data.save()
-	    return members_details(request, user_username)
+	    return members_details(request, user_username) #return to userpage if upload was successfull
 
     else:
         image_form=UserImageForm()
 
-    return render_to_response('members/member_userpic_upload.html', 
+    return render_to_response('members/member_update_userpic.html', 
                               {'form': image_form},  
                                context_instance=RequestContext(request))
