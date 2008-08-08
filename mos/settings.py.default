@@ -1,15 +1,12 @@
-# Django settings for meta project.
-
-import os, sys
+# Django settings for hos
+import os
+import sys
 _DIRNAME = os.path.dirname(globals()["__file__"])
 
-sys.path.append( os.path.join(_DIRNAME, '..') )
-
-
+sys.path.append(os.path.join(_DIRNAME, '..'))
 
 # Make this unique, and don't share it with anybody.
 #SECRET_KEY = 'hackerspaceos-thisinotsecret.'
-
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -24,18 +21,15 @@ sys.path.append(os.path.join(_DIRNAME, 'support'))
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'hackerspaceos'             # Or path to database file if using sqlite3.
-DATABASE_USER = 'root'             # Not used with sqlite3.
-DATABASE_PASSWORD = ''         # Not used with sqlite3.
-DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+DATABASE_ENGINE = 'mysql' # 'postgresql_psycopg2', 'postgresql', 'mysql',
+                          # 'sqlite3' or 'oracle'.
+DATABASE_NAME = 'hos'
+DATABASE_USER = 'hos_db_user'
+DATABASE_PASSWORD = 'hos_db_user_pw'
+DATABASE_HOST = ''       #Set to empty string for localhost.
+DATABASE_PORT = ''       # Set to empty string for default.
 
-# Local time zone for this installation. Choices can be found here:
-# http://www.postgresql.org/docs/8.1/static/datetime-keywords.html#DATETIME-TIMEZONE-SET-TABLE
-# although not all variations may be possible on all operating systems.
-# If running in a Windows environment this must be set to the same as your
-# system time zone.
+# Local timezone
 TIME_ZONE = 'Europe/Vienna'
 
 # Language code for this installation. All choices can be found here:
@@ -51,7 +45,6 @@ USE_I18N = True
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
 MEDIA_ROOT = os.path.join(_DIRNAME, "media")
-#'/Users/enki/Projects/mos/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -74,17 +67,18 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.doc.XViewMiddleware',
-    'mos.core.middleware.SetStatFooter', # remove this row to disable footer stats
+    'mos.core.middleware.SetStatFooter', # remove this row to disable
+                                         #footer stats
 )
 
 ROOT_URLCONF = 'mos.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Put strings here, like "/home/html/django_templates"
+    # or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(_DIRNAME, "templates")
-)
+    os.path.join(_DIRNAME, "templates"))
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.auth',
@@ -101,11 +95,11 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.humanize',
+    'mos.web',
     'mos.projects',
     'mos.cal',
     'mos.members',
     'mos.rss',
-    'mos.web',
     'mos.announce',
     'mos.core',
 )
@@ -114,22 +108,23 @@ INSTALLED_APPS = (
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
 
-# Custom Options 
+#---  Custom Options ----------------------------------------------------------
 
-HOS_NAME = "Hackerspace OS"
-HOS_HOME_EVENT_NUM = 5
-HOS_WIKI_URL = 'wiki/'
+
+HOS_URL_PREFIX = '/'
+HOS_NAME = 'Hackerspace-OS'
+HOS_HOME_EVENT_NUM = 4
+HOS_WIKI_URL = ''
 HOS_ANNOUNCE_FROM = 'core@yourdomain.org'
 HOS_WIKI_CHANGE_URL = ''
 
 # ----------------- Style ---------------------
 HOS_CUSTOM_STYLE = '' # name of the custom style, blank for default
 HOS_METASENSE = False
-HOS_LOCATION_GALLERY = True
-HOS_MEMBER_GALLERY = True
+HOS_LOCATION_GALLERY = False
+HOS_MEMBER_GALLERY = False
 HOS_CALENDAR = True
 HOS_OPENLAB = True
 HOS_INTRODUCTION = True
 HOS_PROJECTS = True
 HOS_RECENT_CHANGES = True
-

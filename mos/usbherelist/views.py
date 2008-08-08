@@ -8,16 +8,14 @@ import time
 import django.template as template
 from django.shortcuts import render_to_response
 
-# Create your views here.
-
 
 def update_herelist(request):
-#    MEDIA_ROOT = '/home/exp/data/'
     r = HttpResponse()
     if request.FILES:
         for k, v in request.FILES.items():
             if v['content-type'] == 'text/plain' and k == 'herelist':
-                fd = open(os.path.join(settings.MEDIA_ROOT,'usbherelist', 'herelist.txt'), 'wb')
+                fd = open(os.path.join(settings.MEDIA_ROOT, 'usbherelist',\
+                                       'herelist.txt'), 'wb')
                 fd.write(v['content'])
                 fd.close()
                 r.write('accepted update')
@@ -29,15 +27,15 @@ def update_herelist(request):
 
 
 def serve_herelist(request, template):
-    return render_to_response(template, {'herelist': get_herelist(), })
+    return render_to_response(template, {'herelist': get_herelist()})
 
 
 def get_herelist():
-    filename = os.path.join(settings.MEDIA_ROOT,'usbherelist', 'herelist.txt')
+    filename = os.path.join(settings.MEDIA_ROOT, 'usbherelist', 'herelist.txt')
 
     logfile = os.path.join(settings.MEDIA_ROOT, 'test.log')
 
-    herelist = list()    
+    herelist = list()
 
     # a) empty file
     if os.path.getsize(filename) <= 0:

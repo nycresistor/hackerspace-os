@@ -50,9 +50,9 @@ def delete_event(request, object_id=None, came_from=''):
 
     if came_from == 'calendar':
         latest = Event.all.all().order_by('-startDate')
-    else :
+    else:
         latest = Event.future.all()
-  
+
     return render_to_response('cal/calendar.inc', {
                 'latestevents': latest,
                 }, context_instance=RequestContext(request))
@@ -100,10 +100,13 @@ def update_event(request, new, object_id=None):
         print dir(response)
     return response
 
+
 def list(request, number=0):
     events = Event.future.get_n(long(number) if number != '' else 0)
 
     if not number:
         events = events.reverse()
 
-    return render_to_response('cal/calendar.inc', {'latestevents': events}, context_instance=RequestContext(request))
+    return render_to_response('cal/calendar.inc',
+                              {'latestevents': events},
+                              context_instance=RequestContext(request))

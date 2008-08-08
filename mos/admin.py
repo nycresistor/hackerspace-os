@@ -27,4 +27,3 @@ member_admin.register(MembershipFee)
 member_admin.register(MembershipPeriod)
 member_admin.register(Payment)
 member_admin.register(PaymentMethod)
-

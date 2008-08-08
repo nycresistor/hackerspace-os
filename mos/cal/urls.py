@@ -1,9 +1,8 @@
 from django.conf.urls.defaults import *
-from mos import settings
 
-from models import Event, Location, Category
-from forms import EventForm
-import datetime
+from mos.cal.models import Event, Location, Category
+from mos.core.context_processors import calendar_context
+
 
 date_dict = {
     'queryset': Event.all.all(),
@@ -12,6 +11,7 @@ date_dict = {
     'allow_empty': True,
     'num_latest': 100,
     'template_object_name': 'latestevents',
+    'context_processors': [calendar_context],
 }
 
 info_dict = {
@@ -23,23 +23,18 @@ info_dict_locations = {
     'queryset': Location.objects.all(),
  #   'template_object_name': 'locations',
     'template_name': 'cal/event_locations.html',
+   'context_processors': [calendar_context],
 }
 
 info_dict_categories = {
     'queryset': Category.objects.all(),
  #   'template_object_name': 'locations',
     'template_name': 'cal/event_categories.html',
+   'context_processors': [calendar_context],
 }
 
 
-info_dict = {
-    'queryset': Event.all.all(),
-    'template_object_name': 'event',
-}
-
-
-urlpatterns = patterns(
-  'django.views.generic.date_based',
+urlpatterns = patterns('django.views.generic.date_based',
   (r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/(?P<day>\w{1,2})/(?P<slug>[-\w]+)/$',
    'object_detail', date_dict),
   (r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/(?P<day>\w{1,2})/$',
@@ -59,12 +54,12 @@ urlpatterns += patterns('',
      'django.views.generic.list_detail.object_detail', info_dict),
     (r'^(?P<object_id>\d+)/update/$',
      'mos.cal.views.update_event', {'new': False}),
-    (r'^(?P<object_id>\d+)/delete/(?P<came_from>\w+)/', 'mos.cal.views.delete_event'),
+    (r'^(?P<object_id>\d+)/delete/(?P<came_from>\w+)/',
+     'mos.cal.views.delete_event'),
     (r'^new/$', 'mos.cal.views.update_event', {'new': True}),
     (r'^locations/$',
      'django.views.generic.list_detail.object_list', info_dict_locations),
     (r'^categories/$',
      'django.views.generic.list_detail.object_list', info_dict_categories),
-
     (r'^ajax/list/(?P<number>\d*)/?$', 'mos.cal.views.list'),
 )

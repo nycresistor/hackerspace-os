@@ -18,11 +18,13 @@ class EventManager(models.Manager):
 
 
 class FutureEventFixedNumberManager(EventManager):
+
     def get_query_set(self):
         """
         Get <num> future events, or if there aren't enough,
         get <num> latest+future events.
         """
+
         DEFAULT_NUM = 5
         if(hasattr(settings, 'HOS_HOME_EVENT_NUM')):
             num = settings.HOS_HOME_EVENT_NUM
@@ -61,7 +63,7 @@ class Event(models.Model):
     """
     Represents an event
     """
-    
+
     name = models.CharField(max_length=200)
     teaser = models.TextField(max_length=200, blank=True, null=True)
     wikiPage = models.CharField(max_length=200)

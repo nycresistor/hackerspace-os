@@ -1,5 +1,7 @@
 <div id="calendar-content">
-
+     <script>
+       var came_from = '{{came_from}}';
+     </script>
     <ul>
 	{% for event in latestevents %}
 		<li>{% include "cal/eventinfo.inc" %}</li>

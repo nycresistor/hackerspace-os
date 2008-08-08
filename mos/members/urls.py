@@ -5,20 +5,26 @@ from mos.members.models import *
 
 info_dict = {
     'queryset': get_active_members(),
-    'template_name': 'members/member_list.html'
+    'template_name': 'members/member_list.html',
 }
 
 urlpatterns = patterns('',
-    (r'^login/?$', 'django.contrib.auth.views.login',  {'template_name': 'members/member_login.html'}),
-    (r'^logout/?$', 'django.contrib.auth.views.logout', {'template_name': 'members/member_login.html', 'next_page':'/'}),
-    
+    (r'^login/?$', 'django.contrib.auth.views.login',
+     {'template_name': 'members/member_login.html'}),
+    (r'^logout/?$', 'django.contrib.auth.views.logout',
+     {'template_name': 'members/member_login.html', 'next_page': '/'}),
+
     (r'^$', 'django.views.generic.list_detail.object_list', info_dict),
     (r'^history/$', 'mos.members.views.members_history'),
-    (r'^change_password/$', 'django.contrib.auth.views.password_change',  {'template_name': 'members/member_update_password.html'}),
-    (r'^change_password/done/$', 'django.contrib.auth.views.password_change_done', {'template_name': 'members/member_update_password_done.html'}),
+    (r'^change_password/$', 'django.contrib.auth.views.password_change',
+     {'template_name': 'members/member_update_password.html'}),
+    (r'^change_password/done/$',
+     'django.contrib.auth.views.password_change_done',
+     {'template_name': 'members/member_update_password_done.html'}),
     (r'^collection/$', 'mos.members.views.members_bankcollection_list'),
-    (r'^(?P<user_username>\w+)/$', 'mos.members.views.members_details'), #this should be a generic view in version2
-    (r'^(?P<user_username>\w+)/update/userpic/$', 'mos.members.views.members_update_userpic'), #this should 
-    (r'^(?P<user_username>\w+)/update/(?P<update_type>\w+)/$', 'mos.members.views.members_update'), #this should 
-                       #be a generic view in version2
+    (r'^(?P<user_username>\w+)/$', 'mos.members.views.members_details'),
+    (r'^(?P<user_username>\w+)/update/userpic/$',
+     'mos.members.views.members_update_userpic'),
+    (r'^(?P<user_username>\w+)/update/(?P<update_type>\w+)/$',
+     'mos.members.views.members_update'),
 )

@@ -1,30 +1,26 @@
 from django.conf import settings
 
+
 def custom_settings_global(request):
     """
-    sets custom style and name for 
+    sets custom style and name as global template variables
     """
-    
-    items = request.path.split('/')
-    if items[-2] == '':
-        came_from = 'root'
-    else:
-        came_from = items[-2]
 
     return {'custom_style': settings.HOS_CUSTOM_STYLE,
             'HOS_NAME': settings.HOS_NAME,
-            'came_from': came_from,
             }
+
 
 def custom_settings_wiki(request):
     """
     Sets the custom wiki url
     """
 
-    return {'HOS_WIKI_URL': settings.HOS_WIKI_URL }
+    return {'HOS_WIKI_URL': settings.HOS_WIKI_URL}
+
 
 def custom_settings_main(request):
-    """ 
+    """
     sets customizations specified in settings.py for the main page
     """
 
@@ -40,3 +36,11 @@ def custom_settings_main(request):
             }
 
 
+def calendar_context(request):
+    items = request.path.split('/')
+    if items[-2] == '':
+        came_from = 'root'
+    else:
+        came_from = items[-2]
+
+    return {'came_from': came_from}

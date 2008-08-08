@@ -10,7 +10,7 @@ from django.template import RequestContext
 
 from mos import settings
 from mos.cal.models import Event
-from mos.core.context_processors import custom_settings_main
+from mos.core.context_processors import custom_settings_main, calendar_context
 from mos.members.models import get_active_members
 from mos.projects.models import Project
 from mos.rss.models import Change
@@ -74,7 +74,8 @@ def display_main_page(request):
         'images': images,
         'randommembers': randommembers,
         }, context_instance=RequestContext(request,
-                                           processors=[custom_settings_main]))
+                                           processors=[custom_settings_main,
+                                                       calendar_context]))
 
 
 def wikipage(request):
@@ -93,6 +94,5 @@ def wikipage(request):
                                                                           page)
 
     return render_to_response('wikipage.html', {
-        'file': page
-        }, context_instance=RequestContext(request)
-)
+        'file': page,
+        }, context_instance=RequestContext(request))

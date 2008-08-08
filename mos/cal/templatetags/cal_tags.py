@@ -7,14 +7,15 @@ from mos.core.models import Location, Category
 
 
 register = template.Library()
- 
-""" MAKE get_category_list and get_location_list generic"""
+
+
 @register.filter
 def get_category_list(value):
     try:
         return Category.objects.all()
     except ObjectDoesNotExist:
         return None
+
 
 @register.filter
 def get_location_list(value):
@@ -23,22 +24,20 @@ def get_location_list(value):
     except ObjectDoesNotExist:
         return None
 
+
 @register.filter
-def get_events_by_location(value,arg):
+def get_events_by_location(value, arg):
     try:
-        return Event.objects.filter(location__name=arg).order_by('startDate')[:4]
+        return Event.objects.filter(location__name=arg)\
+                             .order_by('startDate')[:4]
     except ObjectDoesNotExist:
         return None
 
+
 @register.filter
-def get_events_by_category(value,arg):
+def get_events_by_category(value, arg):
     try:
-        return Event.objects.filter(category__name=arg).order_by('startDate')[:4]
+        return Event.objects.filter(category__name=arg)\
+                            .order_by('startDate')[:4]
     except ObjectDoesNotExist:
         return None
-#    try : 
-#        return ['foo','bar']
-#    except  ObjectDoesNotExist:
- #       return 0
-    
-    

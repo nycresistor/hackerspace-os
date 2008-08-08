@@ -6,7 +6,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.xheaders import populate_xheaders
 from django.db.models.fields import DateTimeField
 from django.http import Http404, HttpResponse
-import django.views.generic.date_based
+from django.views.generic.date_based import archive_index
+
 
 def archive_index_prefer_future(request, queryset, date_field, num_latest=15,
         template_name=None, template_loader=loader,
@@ -22,28 +23,44 @@ def archive_index_prefer_future(request, queryset, date_field, num_latest=15,
         latest
             Latest N (defaults to 15) objects by date
     """
-    if extra_context is None: extra_context = {}
+
+    if extra_context is None:
+        extra_context = {}
+
     model = queryset.model
-    elements = queryset.filter(**{'%s__gte' % date_field: datetime.datetime.now()}).order_by(date_field)
+    elements = queryset.filter(**{'%s__gte' % date_field: \
+                               datetime.datetime.now()}).order_by(date_field)
+
     if elements.count()<=num_latest:
-        return django.views.generic.date_based.archive_index(request,queryset,date_field,num_latest=num_latest,template_name=template_name,
-                template_loader=template_loader,extra_context=extra_context,allow_empty=allow_empty,context_processors=context_processors,
-                mimetype=mimetype,template_object_name=template_object_name,allow_future=True)
+        return archive_index(request, queryset,
+                             date_field,
+                             num_latest=num_latest,
+                             template_name=template_name,
+                             template_loader=template_loader,
+                             extra_context=extra_context,
+                             allow_empty=allow_empty,
+                             context_processors=context_processors,
+                             mimetype=mimetype,
+                             template_object_name=template_object_name,
+                             allow_future=True)
     else:
         elements = elements.order_by("-"+date_field)[0:num_latest]
-    queryset = elements
 
+    queryset = elements
     latest = queryset
 
     if not template_name:
-        template_name = "%s/%s_archive.html" % (model._meta.app_label, model._meta.object_name.lower())
+        template_name = "%s/%s_archive.html" %(model._meta.app_label,
+                                               model._meta.object_name.lower())
     t = template_loader.get_template(template_name)
     c = RequestContext(request, {
-        template_object_name : latest,
-    }, context_processors)
+        template_object_name: latest,
+        }, context_processors)
+
     for key, value in extra_context.items():
         if callable(value):
             c[key] = value()
         else:
             c[key] = value
+
     return HttpResponse(t.render(c), mimetype=mimetype)

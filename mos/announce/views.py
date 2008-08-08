@@ -12,7 +12,7 @@ import smtplib
 
 class AnnouncementForm(forms.Form):
     subject = forms.CharField(required=True, label="Thema", max_length=40)
-    body    = forms.CharField(required=True, label="Mitteilung",
+    body = forms.CharField(required=True, label="Mitteilung",
                               widget=forms.Textarea)
 
 
@@ -39,16 +39,15 @@ def announce(request):
             ci.last_email_ok = True
             ci.save()
         except smtplib.SMTPException, instance:
-             f = open('/announcelog.log','a')
-             f.write('\n\n'+user.email)
-             f.write('\n'+repr(instance))
-             ci.last_email_ok = False
-             ci.save()
-             f.close()
+            f = open('/announcelog.log', 'a')
+            f.write('\n\n'+user.email)
+            f.write('\n'+repr(instance))
+            ci.last_email_ok = False
+            ci.save()
+            f.close()
 
     return render_to_response('announce/message_sent.html',
                               {
                                'form': form,
                                'user': request.user,
                                })
-
