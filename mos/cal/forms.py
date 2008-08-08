@@ -16,5 +16,4 @@ class EventForm(ModelForm):
 
     class Meta:
         model = Event
-        exclude = ('where', 'startDate', 'endDate', 'created_at',
-                   'created_by', 'deleted', 'who')
+        exclude = ('where', 'created_at', 'created_by', 'deleted', 'who')

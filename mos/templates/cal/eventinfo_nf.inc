@@ -1,8 +1,8 @@
 
-<div id="calendarcontainer{{event_form.instance.id|default_if_none:""}}">
+<div id="calendarcontainer{{event.id|default_if_none:""}}">
 
 
-<p class="event {% ifequal event_error_id event_form.instance.id %}invisible{% endifequal%}  {% if event.past %}past_event{% else %}event{% endif %}" id="calendar-view-{{event_form.instance.id|default_if_none:""}}">
+<p class="event {% ifequal event_error_id event.id %}invisible{% endifequal%}  {% if event.past %}past_event{% else %}event{% endif %}" id="calendar-view-{{event.id|default_if_none:""}}">
     {% if not new %}
        <span class="event_date">{{ event.startDate|date:"D d.m.Y H:i" }} {% if event.endDate %} - {% if event.start_end_date_eq %} {{ event.endDate|date:"H:i" }} {% else %} {{ event.endDate|date:"D d.m.Y H:i" }} {% endif %} {% endif %}</span>       
       		{% if event.wikiPage %}<a href="/wiki/{{event.wikiPage}}"> {% endif %}{{ event.name }}{% if event.wikiPage %}</a>{% endif %}
@@ -12,12 +12,12 @@
 
  {% endif %}
 	{% if user.is_authenticated %}
-        <a href='#' class="{%if not new %}hoverHidden{%endif%}" onclick="toggleView('calendar', '{% if not new %}{{event_form.instance.id|default_if_none:""}}{% endif %}', 1); return false;">{%if not new %}Edit{%else%}Create New Event{%endif%}</a>{% endif %}
+        <a href='#' class="{%if not new %}hoverHidden{%endif%}" onclick="toggleView('calendar', '{% if not new %}{{event.id|default_if_none:""}}{% endif %}', 1); return false;">{%if not new %}Edit{%else%}Create New Event{%endif%}</a>{% endif %}
 	</p>
 	{% if user.is_authenticated %}
 
-    <div class="{% ifnotequal event_error_id event_form.instance.id %} invisible {% endifnotequal %} edit" id='calendar-edit-{% if not new %}{{event_form.instance.id|default_if_none:""}}{% endif %}'>
-		<form id='calendar-form-{{event_form.instance.id|default_if_none:""}}' method="post" action="/calendar/{% if new %}new{%else%}{{event_form.instance.id|default_if_none:""}}/update{%endif%}/" onsubmit="return false;" onKeyPress="if(enter_pressed(event)){ submit_form($('calendar-form-{{event_form.instance.id|default_if_none:""}}'), $('eventcontainer{{event_form.instance.id|default_if_none:""}}')); }">
+    <div class="invisible edit" id='calendar-edit-{% if not new %}{{event.id|default_if_none:""}}{% endif %}'>
+		<form id='calendar-form-{{event.id|default_if_none:""}}' method="post" action="/calendar/{% if new %}new{%else%}{{event.id|default_if_none:""}}/update{%endif%}/" onsubmit="return false;" onKeyPress="if(enter_pressed(event)){ submit_form($('calendar-form-{{event.id|default_if_none:""}}'), $('eventcontainer{{event.id|default_if_none:""}}')); }">
             <dl>
 
 			<dt><label><b>Event Name</b>:* - Teaser:</label></dt>
@@ -63,14 +63,14 @@
             <dd style="text-align: right;">
 			{% if not new %}
 
-				<input type="button" value="Update" onclick="submit_event('{{event_form.instance.id|default_if_none:""}}');">
-				<input type="button" value="Delete" onclick="delete_entry('calendar','{{event_form.instance.id|default_if_none:""}}', came_from);"> 
+				<input type="button" value="Update" onclick="submit_event('{{event.id|default_if_none:""}}');">
+				<input type="button" value="Delete" onclick="delete_entry('calendar','{{event.id|default_if_none:""}}', came_from);"> 
 			
             {% else %}
-				<input type="button" value="Create" onclick="submit_event('{{event_form.instance.id|default_if_none:""}}');">
+				<input type="button" value="Create" onclick="submit_event('{{event.id|default_if_none:""}}');">
             {% endif %}
 
-			<a href="#" class="toggled" onclick="toggleView('calendar', '{% if not new %}{{event_form.instance.id|default_if_none:""}}{% endif %}', 0); return false;">Cancel</a>
+			<a href="#" class="toggled" onclick="toggleView('calendar', '{% if not new %}{{event.id|default_if_none:""}}{% endif %}', 0); return false;">Cancel</a>
             </dd>
             </dl>
 		</form>
