@@ -2,7 +2,7 @@
 <div id="calendarcontainer{{event.id|default_if_none:""}}">
 
 
-<p class="event {% ifequal event_error_id event.id %}invisible{% endifequal%}  {% if event.past %}past_event{% else %}event{% endif %}" id="calendar-view-{{event.id|default_if_none:""}}">
+<p class="event {% if event.past %}past_event{% else %}event{% endif %}" id="calendar-view-{{event.id|default_if_none:""}}">
     {% if not new %}
        <span class="event_date">{{ event.startDate|date:"D d.m.Y H:i" }} {% if event.endDate %} - {% if event.start_end_date_eq %} {{ event.endDate|date:"H:i" }} {% else %} {{ event.endDate|date:"D d.m.Y H:i" }} {% endif %} {% endif %}</span>       
       		{% if event.wikiPage %}<a href="/wiki/{{event.wikiPage}}"> {% endif %}{{ event.name }}{% if event.wikiPage %}</a>{% endif %}
@@ -16,7 +16,7 @@
 	</p>
 	{% if user.is_authenticated %}
 
-    <div class="invisible edit" id='calendar-edit-{% if not new %}{{event.id|default_if_none:""}}{% endif %}'>
+    <div class="{% if not event_has_error %}invisible {%endif%}edit" id='calendar-edit-{% if not new %}{{event.id|default_if_none:""}}{% endif %}'>
 		<form id='calendar-form-{{event.id|default_if_none:""}}' method="post" action="/calendar/{% if new %}new{%else%}{{event.id|default_if_none:""}}/update{%endif%}/" onsubmit="return false;" onKeyPress="if(enter_pressed(event)){ submit_form($('calendar-form-{{event.id|default_if_none:""}}'), $('eventcontainer{{event.id|default_if_none:""}}')); }">
             <dl>
 

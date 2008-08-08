@@ -69,7 +69,7 @@ def update_event(request, new, object_id=None):
     else:
         event = Event()
 
-    event_error_id = ' '
+    event_error_id = None
 
     event_valid = True
 
@@ -81,7 +81,6 @@ def update_event(request, new, object_id=None):
             event_data.save(request.user, new)
             event = Event.objects.get(id=event_data.id)
         else:
-            print 'lolwhat'
             event_valid = False
             event_error_id = event.id
 
@@ -89,7 +88,7 @@ def update_event(request, new, object_id=None):
         event_form = EventForm()
 
     response = render_to_response('cal/eventinfo_nf.inc', {
-            'event_error_id': event_error_id,
+            'event_has_error': not event_valid,
             'event_form': event_form,
             'event': event,
             'new': not event.pk,
@@ -97,7 +96,7 @@ def update_event(request, new, object_id=None):
 
     if not event_valid:
         response.status_code = 500
-        print dir(response)
+
     return response
 
 
