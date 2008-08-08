@@ -6,15 +6,16 @@ function submit_form(type, id){
  
 }
 
-function delete_entry(type, id, came_from){
-    myform = $(type + '-form-' + id);
+function delete_event(id) {
+    var frm = $('calendar-form-'+id);
+    var cnt = $('calendar-edit-'+id);
 
-    new Ajax.Updater( $(type + '-content'), '/' + type + '/'  + id + '/delete/' + came_from + '/', {
-        parameters: myform.serialize(true),
-    });
-    
+    new Ajax.Request('/calendar/' + id + '/delete/', {
+                                                    onSuccess: function(r) {
+                                                                            new Ajax.Updater('calendar-content', calendarUpdateURL);
+                                                                           } 
+                                                  })
 }
-   
 
 function toggleView(type, id, onoff) {
     view = $(type + '-view-' + id);

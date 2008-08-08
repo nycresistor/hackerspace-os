@@ -26,11 +26,17 @@
    {{ description.description }}</p>
 {% endif %}
 
-
-    {% with "True" as all_events %}   {# variable for switching more link ind calendar.inc #}
-	{% include "cal/calendar.inc" %}
-    {% endwith %}
-
+    {% if type %}
+      {% with "True" as disable_create  %}
+        {% with "True" as all_events %}   {# variable for switching more link ind calendar.inc #}
+	  {% include "cal/calendar.inc" %}
+        {% endwith %}
+      {% endwith %}
+    {% else %}
+       {% with "True" as all_events %}   {# variable for switching more link ind calendar.inc #}
+	  {% include "cal/calendar.inc" %}
+        {% endwith %}
+    {% endif %}
 <script type="text/javascript">
     var calendarUpdateURL = '/calendar/ajax/list/';
 </script>

@@ -34,13 +34,3 @@ def custom_settings_main(request):
             'metasense': settings.HOS_METASENSE,
             'HOS_WIKI_CHANGE_URL': settings.HOS_WIKI_CHANGE_URL,
             }
-
-
-def calendar_context(request):
-    items = request.path.split('/')
-    if items[-2] == '':
-        came_from = 'root'
-    else:
-        came_from = items[-2]
-
-    return {'came_from': came_from}

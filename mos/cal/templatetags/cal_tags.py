@@ -1,4 +1,5 @@
 from django import template
+from django.template import Variable
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 
@@ -9,35 +10,24 @@ from mos.core.models import Location, Category
 register = template.Library()
 
 
-@register.filter
-def get_category_list(value):
+@register.tag(name="events_by_type")
+def do_events_by_type(parser, token):
     try:
-        return Category.objects.all()
-    except ObjectDoesNotExist:
-        return None
+        # split_contents() knows not to split quoted strings.
+        tag_name, name = token.split_contents()
+    except ValueError:
+        raise template.TemplateSyntaxError, "%r tag requires exactly two arguments" % token.contents.split()[0]
+    return EventsByTypeNode(name)
 
 
-@register.filter
-def get_location_list(value):
-    try:
-        return Location.objects.all()
-    except ObjectDoesNotExist:
-        return None
+class EventsByTypeNode(template.Node):
+    def __init__(self, name):
+        self.obj = Variable(name)
 
+    def render(self, context):
+        kw = self.obj.resolve(context).__class__.__name__.lower() + '__name' 
+        filter_arg = {str(kw): self.obj.resolve(context).name}
+        obj_sub_list = Event.objects.filter(**filter_arg)     
+        context['latestevents'] = obj_sub_list
+        return ''
 
-@register.filter
-def get_events_by_location(value, arg):
-    try:
-        return Event.objects.filter(location__name=arg)\
-                             .order_by('startDate')[:4]
-    except ObjectDoesNotExist:
-        return None
-
-
-@register.filter
-def get_events_by_category(value, arg):
-    try:
-        return Event.objects.filter(category__name=arg)\
-                            .order_by('startDate')[:4]
-    except ObjectDoesNotExist:
-        return None

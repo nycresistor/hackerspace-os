@@ -64,7 +64,7 @@
 			{% if not new %}
 
 				<input type="button" value="Update" onclick="submit_event('{{event.id|default_if_none:""}}');">
-				<input type="button" value="Delete" onclick="delete_entry('calendar','{{event.id|default_if_none:""}}', came_from);"> 
+				<input type="button" value="Delete" onclick="delete_event('{{event.id|default_if_none:""}}');"> 
 			
             {% else %}
 				<input type="button" value="Create" onclick="submit_event('{{event.id|default_if_none:""}}');">

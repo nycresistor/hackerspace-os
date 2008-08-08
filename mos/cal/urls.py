@@ -1,7 +1,6 @@
 from django.conf.urls.defaults import *
 
 from mos.cal.models import Event, Location, Category
-from mos.core.context_processors import calendar_context
 
 
 date_dict = {
@@ -11,7 +10,6 @@ date_dict = {
     'allow_empty': True,
     'num_latest': 100,
     'template_object_name': 'latestevents',
-    'context_processors': [calendar_context],
 }
 
 info_dict = {
@@ -22,15 +20,13 @@ info_dict = {
 info_dict_locations = {
     'queryset': Location.objects.all(),
  #   'template_object_name': 'locations',
-    'template_name': 'cal/event_locations.html',
-   'context_processors': [calendar_context],
+    'template_name': 'cal/event_special_list.html',
 }
 
 info_dict_categories = {
     'queryset': Category.objects.all(),
  #   'template_object_name': 'locations',
-    'template_name': 'cal/event_categories.html',
-   'context_processors': [calendar_context],
+    'template_name': 'cal/event_special_list.html',
 }
 
 
@@ -54,8 +50,7 @@ urlpatterns += patterns('',
      'django.views.generic.list_detail.object_detail', info_dict),
     (r'^(?P<object_id>\d+)/update/$',
      'mos.cal.views.update_event', {'new': False}),
-    (r'^(?P<object_id>\d+)/delete/(?P<came_from>\w+)/',
-     'mos.cal.views.delete_event'),
+    (r'^(?P<object_id>\d+)/delete/', 'mos.cal.views.delete_event'),
     (r'^new/$', 'mos.cal.views.update_event', {'new': True}),
     (r'^locations/$',
      'django.views.generic.list_detail.object_list', info_dict_locations),
