@@ -14,5 +14,5 @@
         {% include "cal/eventinfo_nf.inc" %}
         {% endwith %}
 	{% endwith %}
-	{% if not all_events %} <p style="text-align: right"><a href="/cal/{% if location %}special/Location/{{location.name}}{% else %}{% if category %}special/Category/{{category.name}}{% endif %}{% endif %}">more...</a></p> {% endif %}
+	{% if not all_events %} <p style="text-align: right"><a href="/calendar/{% if location %}special/Location/{{location.name}}{% else %}{% if category %}special/Category/{{category.name}}{% endif %}{% endif %}">more...</a></p> {% endif %}
 </div>

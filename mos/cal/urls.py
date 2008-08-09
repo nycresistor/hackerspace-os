@@ -21,12 +21,14 @@ info_dict_locations = {
     'queryset': Location.objects.all(),
  #   'template_object_name': 'locations',
     'template_name': 'cal/event_special_list.html',
+    'extra_context': {'events_by': ' Locations'}
 }
 
 info_dict_categories = {
     'queryset': Category.objects.all(),
  #   'template_object_name': 'locations',
     'template_name': 'cal/event_special_list.html',
+    'extra_context': {'events_by': ' Categories'}
 }
 
 
