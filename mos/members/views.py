@@ -73,10 +73,8 @@ def members_bankcollection_list(request):
     if request.user.is_superuser:
         # get members that are active and have monthly collection activated
         members_to_collect_from = get_active_members()\
-                                  .filter(paymentinfo__\
-                                              bank_collection_allowed=True)\
-                                  .filter(paymentinfo__\
-                                              bank_collection_mode__id=4)
+                                  .filter(paymentinfo__bank_collection_allowed=True)\
+                                  .filter(paymentinfo__bank_collection_mode__id=4)
                                     # 4 = monthly
 
 
