@@ -27,7 +27,7 @@
 {% endif %}
 
     {% if type %}
-      {% with "True" as disable_create  %}
+      {% with "True" as edit_disabled %}
         {% with "True" as all_events %}   {# variable for switching more link ind calendar.inc #}
 	  {% include "cal/calendar.inc" %}
         {% endwith %}

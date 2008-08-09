@@ -1,9 +1,7 @@
 {% with None as event %}
     {% load makeform %}
 <div id="calendar-content">
-     <script>
-       var came_from = '{{came_from}}';
-     </script>
+
     <ul>
 	{% for event in latestevents %}
         {% makeform event mos.cal.forms.EventForm event_form %}
