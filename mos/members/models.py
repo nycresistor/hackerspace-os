@@ -22,6 +22,11 @@ class PaymentInfo(models.Model):
 
 
 class ContactInfo(models.Model):
+
+    def get_image_path(self, filename):
+        name, ext = filename.rsplit('.', 1)
+        return 'userpics/%s.%s' %(self.user.username, ext)
+    
     on_intern_list = models.BooleanField(default=True, core=True)
     intern_list_email = models.EmailField(blank=True)
 
@@ -34,12 +39,13 @@ class ContactInfo(models.Model):
     birthday = models.DateField(null=True, blank=True)
 
     wiki_name = models.CharField(max_length=50, blank=True, null=True)
-    image = models.ImageField(upload_to='userpics/', blank=True)
+    image = models.ImageField(upload_to=get_image_path, blank=True)
 
     user = models.ForeignKey(User, unique=True, edit_inline=models.STACKED,
                              num_in_admin=1, max_num_in_admin=1)
 
     last_email_ok = models.BooleanField(null=True)
+
 
     def get_debts(self):
         #FIXME: this is broken because it assumes that a membership period
