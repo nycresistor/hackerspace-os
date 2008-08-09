@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib import admin
 
 
 class PaymentInfo(models.Model):
@@ -184,3 +185,25 @@ class PaymentMethod(models.Model):
 
     def __unicode__(self):
         return u"%s" % self.name
+
+
+class ContactInfoInline(admin.StackedInline):
+    model = ContactInfo
+    max_num = 1
+
+class PaymentInfoInline(admin.StackedInline):
+    model = PaymentInfo
+    max_num = 1
+
+class MembershipPeriodInline(admin.TabularInline):
+    model = MembershipPeriod
+    max_num = 1
+
+class MemberAdmin(admin.ModelAdmin):
+    inlines=[ContactInfoInline, PaymentInfoInline, MembershipPeriodInline]
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff')
+    list_filter = ('is_staff', 'is_superuser')
+    search_fields = ('username', 'email', 'first_name', 'last_name')
+    ordering = ('username',)
+
+
