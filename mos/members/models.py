@@ -102,7 +102,7 @@ class ContactInfo(models.Model):
         if self.wiki_name==None:
             return None
         else:
-            return u'%s/Benutzer:%s' % (settings.WIKI_URL, self.wiki_name)
+            return u'%s/Benutzer:%s' % (settings.HOS_WIKI_URL, self.wiki_name)
 
 
 def get_active_members():
