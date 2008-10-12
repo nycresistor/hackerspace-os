@@ -10,15 +10,13 @@ from django.contrib import admin
 
 class PaymentInfo(models.Model):
     bank_collection_allowed = models.BooleanField()
-    bank_collection_mode = models.ForeignKey('BankCollectionMode', core=True)
+    bank_collection_mode = models.ForeignKey('BankCollectionMode')
     bank_account_owner = models.CharField(max_length=200, blank=True)
     bank_account_number = models.CharField(max_length=20, blank=True)
     bank_name = models.CharField(max_length=100, blank=True)
     bank_code = models.CharField(max_length=20, blank=True)
 
-    user = models.ForeignKey(User, unique=True, edit_inline=models.STACKED,
-                             min_num_in_admin=0, num_in_admin=1,
-                             max_num_in_admin=1)
+    user = models.ForeignKey(User, unique=True)
 
 
 class ContactInfo(models.Model):
@@ -27,7 +25,7 @@ class ContactInfo(models.Model):
         name, ext = filename.rsplit('.', 1)
         return 'userpics/%s.%s' %(self.user.username, ext)
     
-    on_intern_list = models.BooleanField(default=True, core=True)
+    on_intern_list = models.BooleanField(default=True)
     intern_list_email = models.EmailField(blank=True)
 
     street = models.CharField(max_length=200)
@@ -41,8 +39,7 @@ class ContactInfo(models.Model):
     wiki_name = models.CharField(max_length=50, blank=True, null=True)
     image = models.ImageField(upload_to=get_image_path, blank=True)
 
-    user = models.ForeignKey(User, unique=True, edit_inline=models.STACKED,
-                             num_in_admin=1, max_num_in_admin=1)
+    user = models.ForeignKey(User, unique=True)
 
     last_email_ok = models.BooleanField(null=True)
 
@@ -122,9 +119,9 @@ class BankCollectionMode(models.Model):
 
 
 class MembershipPeriod(models.Model):
-    begin = models.DateField(core=True)
+    begin = models.DateField()
     end = models.DateField(null=True, blank=True)
-    user = models.ForeignKey(User, edit_inline=models.TABULAR, num_in_admin=1)
+    user = models.ForeignKey(User)
     kind_of_membership = models.ForeignKey('KindOfMembership')
 
     def __unicode__(self):
