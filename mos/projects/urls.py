@@ -20,6 +20,8 @@ urlpatterns = patterns('django.views.generic.date_based',
 )
 
 urlpatterns += patterns('',
+                        (r'^(?P<object_id>\d+)/delete/$',
+                         'mos.projects.views.delete_project'),
                         (r'^(?P<object_id>\d+)/$',
                          'django.views.generic.list_detail.object_detail',
                          info_dict),
@@ -27,6 +29,4 @@ urlpatterns += patterns('',
                          'mos.projects.views.update_project', {'new': False}),
                         (r'^new/$',
                          'mos.projects.views.update_project', {'new': True}),
-                        (r'^(?P<object_id>\d+)/delete/$',
-                         'mos.projects.views.delete_project'),
 )
