@@ -11,11 +11,23 @@ function delete_event(id) {
     var cnt = $('calendar-edit-'+id);
 
     new Ajax.Request('/calendar/' + id + '/delete/', {
-                                                    onSuccess: function(r) {
-                                                                            new Ajax.Updater('calendar-content', calendarUpdateURL);
-                                                                           } 
-                                                  })
+	    onSuccess: function(r) {
+		new Ajax.Updater('calendar-content', calendarUpdateURL);
+	    } 
+    })
 }
+
+/*function delete_entry(type, id) {
+    var frm = $(type+'-form-'+id);
+    var cnt = $(type+'-edit-'+id);
+
+    alert(projectUpdateURL);
+    new Ajax.Request('/'+type+'/'+ id+'/delete/', {
+	    onSuccess: function(r) {
+		new Ajax.Updater(type+'-content', projectUpdateURL);
+	    } 
+    })
+    }*/
 
 function toggleView(type, id, onoff) {
     view = $(type + '-view-' + id);
@@ -68,13 +80,13 @@ function submit_event(id) {
     var cnt = $('calendar-edit-'+id);
 
     new Ajax.Request(frm.readAttribute('action'), {
-                                                    parameters: frm.serialize(true),
-                                                    onSuccess: function(r) {
-                                                                            new Ajax.Updater('calendar-content', calendarUpdateURL);
-                                                                           },
-                                                    onFailure: function(r) {
-                                                                            cnt.innerHTML = r.responseText;
-                                                                            DateTimeShortcuts.init.defer(1);
-                                                                           }
-                                                  })
+	    parameters: frm.serialize(true),
+		onSuccess: function(r) {
+		new Ajax.Updater('calendar-content', calendarUpdateURL);
+	    },
+		onFailure: function(r) {
+		cnt.innerHTML = r.responseText;
+		DateTimeShortcuts.init.defer(1);
+	    }
+    })
 }
