@@ -3,7 +3,6 @@ function submit_form(type, id){
     new Ajax.Updater($(type + 'container' + id), myform.readAttribute('action'), {
                   parameters: myform.serialize(true),
     });
- 
 }
 
 function delete_event(id) {

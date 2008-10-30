@@ -45,7 +45,7 @@ def flickr_images(image_urls):
 
 
 def display_main_page(request):
-    events = Event.future.all()
+    events = Event.objects.filter(deleted=False).order_by('-startDate')[:5]
     changes = Change.objects.order_by('-updated')[:5]
     projects = Project.all.order_by('-created_at')[:5]
     randommembers = list(get_active_members().exclude(contactinfo__image="")\
