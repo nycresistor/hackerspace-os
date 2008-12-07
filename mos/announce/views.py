@@ -4,7 +4,7 @@
 from django.shortcuts import render_to_response
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
-from django import newforms as forms
+import django.forms as forms
 from mos.members.models import get_active_members, ContactInfo
 from django.core.mail import send_mail
 import smtplib
