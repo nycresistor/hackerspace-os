@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# vim: set fileencoding=utf-8
+
 import datetime
 
 from django.db import models
@@ -172,12 +175,126 @@ class KindOfMembership(models.Model):
         return u"%s" % self.name
 
 
+class PaymentManager(models.Manager):
+    def import_smallfile(self, f, date):
+        import csv
+        
+        r = csv.reader(f, delimiter=";")
+
+        for line in r:
+            try:
+                u = User.objects.get(first_name=line[0], last_name=line[1])
+            except User.DoesNotExist:
+                print line
+                continue
+            
+            sum = line[5]
+
+            Payment.objects.create(date=date, user=u, amount=sum, method=PaymentMethod.objects.all()[0])
+
+
+    def import_hugefile(self, f):
+        import csv
+        from decimal import Decimal
+
+        r = csv.reader(f, delimiter=";")
+
+        for line in r:
+            if not line[0]:
+                continue
+
+            subject = line[2]
+
+            if '(' in subject and ')' in subject:
+                list_str = subject.split('(')[1].split(')')[0]
+                if list_str == '280':
+                    list = [subject.split('(')[0]]
+                else:
+                    list = list_str.split(',')
+            else:
+                list = [subject]
+
+            sum = line[5] if line[5] else '-'+line[4] if line[4] else '0'
+            
+            try:
+                sum = Decimal(sum) / len(list)
+            except:
+                print line
+                continue
+
+            for name in list:
+                fragments = name.split(' ')
+
+#                if line[0] == '2007-10-02':
+#                    print name, fragments
+
+                if fragments[0] == '':
+                    fragments = fragments[1:]
+
+                if len(fragments)==0:
+                    print 'aaaaaaaaaahhh!!'
+                    continue
+
+                if fragments[0] == 'fehlgeschlagen':
+                    fragments = fragments[1:]
+
+                if 'ckzahlung' in fragments[0]:
+                    fragments = fragments[1:]
+
+                if fragments[0] == 'Ewald-Oliver':
+                    fragments[0] = 'Oliver'
+
+
+                if len(fragments)>1:
+                    if fragments[1] in ('Sirek', 'Siereck'):
+                        fragments[1] = 'Sierek'
+
+                    if fragments[1] == 'Eckhardt':
+                        fragments[1] = 'Eckardt'
+                    
+                    if fragments[1] == 'Grenzfurtner':
+                        fragments[1] = 'Grenzfurthner'
+
+                    if fragments[1] in ('Berg',): # Berg San, Leo Findeisen
+                        fragments = fragments[1:]
+
+                    if fragments[1] in ('Leo',):
+                        fragments = [fragments[0], fragments[2]]
+
+                    if fragments[0] == 'Schreiner':
+                        fragments = [fragments[1] , fragments[0]]
+
+                    if fragments[1] == 'Manztos':
+                        fragments[1] = 'Mantzos'
+
+                    if len(fragments)>2 and fragments[2]:
+                        if fragments[2] == 'Laub':
+                            fragments = fragments[1:]
+
+                if(len(fragments)>1):
+                    u = User.objects.filter(first_name__iexact=fragments[0], last_name__iexact=fragments[1])
+                    if len(u)!=1:
+                        print u, fragments
+                    else:
+                        Payment.objects.create(user=u[0], amount=sum, date=line[0], method=PaymentMethod.objects.all()[0])
+
+
+                else:
+                    print 'no user found for'
+                    print line
+        pass
+
 class Payment(models.Model):
     amount = models.FloatField()
     comment = models.CharField(max_length=200)
     date = models.DateField()
     method = models.ForeignKey('PaymentMethod')
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, null=True)
+    original_line = models.TextField(blank=True)
+    original_file = models.CharField(max_length=200, null=True)
+    original_lineno = models.IntegerField(blank=True, null=True)
+
+    objects = PaymentManager()
 
     def __unicode__(self):
         return u"%s" % self.user.username
