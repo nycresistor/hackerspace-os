@@ -286,7 +286,7 @@ class PaymentManager(models.Manager):
 
 class Payment(models.Model):
     amount = models.FloatField()
-    comment = models.CharField(max_length=200)
+    comment = models.CharField(max_length=200, blank=True)
     date = models.DateField()
     method = models.ForeignKey('PaymentMethod')
     user = models.ForeignKey(User, null=True)
@@ -319,8 +319,13 @@ class MembershipPeriodInline(admin.TabularInline):
     model = MembershipPeriod
     max_num = 1
 
+class PaymentInline(admin.TabularInline):
+    model = Payment
+    fields=('date', 'amount', 'method')
+    ordering=('date')
+
 class MemberAdmin(admin.ModelAdmin):
-    inlines=[ContactInfoInline, PaymentInfoInline, MembershipPeriodInline]
+    inlines=[ContactInfoInline, PaymentInfoInline, MembershipPeriodInline, PaymentInline]
     list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff')
     list_filter = ('is_staff', 'is_superuser')
     search_fields = ('username', 'email', 'first_name', 'last_name')
