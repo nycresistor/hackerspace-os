@@ -39,4 +39,6 @@ urlpatterns = patterns('',
 #    (r'^usbherelist/', include('mos.usbherelist.urls')),
 
     (r'^announce/$', include('mos.announce.urls')),
+
+    (r'^cellardoor/', 'mos.web.views.display_cellardoor'),
 )

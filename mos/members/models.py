@@ -9,6 +9,8 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import admin
+from django.utils.encoding import smart_unicode
+
 
 
 class PaymentInfo(models.Model):
@@ -183,14 +185,14 @@ class PaymentManager(models.Manager):
 
         for line in r:
             try:
-                u = User.objects.get(first_name=line[0], last_name=line[1])
+                u = User.objects.get(first_name=smart_unicode(line[0]), last_name=smart_unicode(line[1]))
             except User.DoesNotExist:
                 print line
                 continue
             
             sum = line[5]
 
-            Payment.objects.create(date=date, user=u, amount=sum, method=PaymentMethod.objects.all()[0])
+            Payment.objects.create(date=date, user=u, amount=sum, method=PaymentMethod.objects.get(name='bank collection'))
 
 
     def import_hugefile(self, f):
@@ -317,7 +319,6 @@ class PaymentInfoInline(admin.StackedInline):
 
 class MembershipPeriodInline(admin.TabularInline):
     model = MembershipPeriod
-    max_num = 1
 
 class PaymentInline(admin.TabularInline):
     model = Payment

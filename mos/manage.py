@@ -4,6 +4,7 @@ import os
 
 _DIRNAME = os.path.dirname(globals()["__file__"])
 sys.path.append(os.path.join(_DIRNAME, '..'))
+sys.path.append('/django/svn/trunk')
 from django.core.management import execute_manager
 try:
     import settings # Assumed to be in the same directory.

@@ -1,9 +1,10 @@
 #!/usr/bin/python
-import sys
+import sys, os
 import datetime
 import feedparser
 
-sys.path.append('/var/www/hackspace/')
+sys.path.append('/django/svn/trunk/')
+sys.path.append('/django/deployment/')
 os.environ['DJANGO_SETTINGS_MODULE'] = "mos.settings"
 
 from django.conf import settings

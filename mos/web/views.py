@@ -45,7 +45,7 @@ def flickr_images(image_urls):
 
 
 def display_main_page(request):
-    events = Event.objects.filter(deleted=False).order_by('-startDate')[:5]
+    events = Event.future.get_n(5)
     changes = Change.objects.order_by('-updated')[:5]
     projects = Project.all.order_by('-created_at')[:5]
     randommembers = list(get_active_members().exclude(contactinfo__image="")\
@@ -95,3 +95,8 @@ def wikipage(request):
     return render_to_response('wikipage.html', {
         'file': page,
         }, context_instance=RequestContext(request))
+
+
+def display_cellardoor(request):
+    events = Event.future.all()
+    return render_to_response('cellardoor.html', {'latestevents': events,}, context_instance=RequestContext(request,processors=[custom_settings_main]))
