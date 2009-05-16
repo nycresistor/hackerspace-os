@@ -13,7 +13,7 @@ def do_makeform(parser, token):
 
     try:
         modulename, classname = form_path.rsplit('.',1)
-        module = __import__(modulename, fromlist=[classname])
+        module = __import__(modulename, None, None, [classname])
     except:
         raise template.TemplateSyntaxError, "the path to form class (%s) should be import-able! %r" % (form_path.rsplit('.', 1)[0], token.contents.split()[0])
 
@@ -23,7 +23,12 @@ def do_makeform(parser, token):
 
 class MakeFormNode(template.Node):
     def __init__(self, context_var, cls, target_name):
-        self.context_var = template.Variable(context_var) if context_var != 'None' else None
+        if context_var != 'None':
+            self.context_var = template.Variable(context_var)
+        else:
+            self.context_var = None
+
+ #       self.context_var = template.Variable(context_var) if context_var != 'None' else None
         self.cls = cls
         self.target_name = target_name
 

@@ -194,7 +194,7 @@ class PaymentManager(models.Manager):
 
             Payment.objects.create(date=date, user=u, amount=sum, method=PaymentMethod.objects.get(name='bank collection'))
 
-
+"""
     def import_hugefile(self, f):
         import csv
         from decimal import Decimal
@@ -285,7 +285,7 @@ class PaymentManager(models.Manager):
                     print 'no user found for'
                     print line
         pass
-
+"""
 class Payment(models.Model):
     amount = models.FloatField()
     comment = models.CharField(max_length=200, blank=True)

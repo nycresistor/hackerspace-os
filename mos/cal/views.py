@@ -94,7 +94,10 @@ def update_event(request, new, object_id=None):
 
 
 def list(request, number=0):
-    events = Event.future.get_n(long(number) if number != '' else 0)
+    if number != '':
+        events = Event.future.get_n(long(number))
+    else:
+        events = Event.future.get_n(0)
 
     if not number:
         events = events.reverse()
