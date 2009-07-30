@@ -52,13 +52,14 @@ def display_main_page(request):
                                                             .order_by('?')[:7])
     herelist = get_herelist()
 
-    try:
-        isis = User.objects.get(username="isis1984")
-        if not isis in randommembers:
-            randommembers[0] = User.objects.get(username="isis1984")
-            random.shuffle(randommembers)
-    except:
-        pass
+    # old "isis always on the main page"-hack
+    #try:
+    #    isis = User.objects.get(username="isis1984")
+    #    if not isis in randommembers:
+    #        randommembers[0] = User.objects.get(username="isis1984")
+    #        random.shuffle(randommembers)
+    #except:
+    #    pass
 
     path = os.path.join(settings._DIRNAME, "media/gallerypics/")
     image_urls = gallery_images(path)
