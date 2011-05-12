@@ -8,7 +8,7 @@ from django.db.models import permalink, Q
 
 from mos.core.models import Category, Location
 
-locale.setlocale(locale.LC_ALL, 'de_DE.UTF-8')
+locale.setlocale(locale.LC_ALL, settings.LOCALE)
 
 
 class EventManager(models.Manager):
