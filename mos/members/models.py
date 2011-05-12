@@ -46,7 +46,7 @@ class ContactInfo(models.Model):
 
     user = models.ForeignKey(User, unique=True)
 
-    last_email_ok = models.BooleanField(null=True)
+    last_email_ok = models.NullBooleanField(null=True)
 
 
     def get_debts(self):
